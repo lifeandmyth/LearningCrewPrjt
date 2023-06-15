@@ -1,5 +1,4 @@
-# 추가 .gitignore할 목록
-lc_test_venv/
+
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -162,5 +161,7 @@ cython_debug/
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
 
-
-
+# 추가 .gitignore할 목록
+lc_pjt_venv/
+media/
+data/
