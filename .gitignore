@@ -1,3 +1,6 @@
+# 추가 .gitignore할 목록
+lc_test_venv/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
