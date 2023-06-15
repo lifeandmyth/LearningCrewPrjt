@@ -164,7 +164,3 @@ cython_debug/
 
 
 
-# myignore
-lc_pjt_venv/
-media/
-datas/
