@@ -163,5 +163,8 @@ cython_debug/
 #.idea/
 
 
-#
+# myignore
+lc_pjt_venv/
+datas/
+media/
 
