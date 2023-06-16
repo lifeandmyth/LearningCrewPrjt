@@ -18,15 +18,3 @@ IT 뉴스 키워드 추출을 통한 트렌드 분석 및 정보 제공 서비�
   JPype1‑1.4.0‑cp39‑cp39‑win_amd64.whl
   설치파일 링크: https://www.lfd.uci.edu/~gohlke/pythonlibs/#jpype
 - 워드 클라우드 : wordcloud 1.9.2
-
-# .gitignore 목록
-lc_pjt_venv/
-settings.py
-media/
-data/
-
-# requirements.txt 외에 해둬야 할 설정
-python.exe -m pip install --upgrade pip
-
-# merge 신청할 branch명(병합하기 전 중간다리)
-pre_main_branch
