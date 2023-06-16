@@ -1,0 +1,11 @@
+1. git pull origin hds
+
+2. 코딩 작업 하기
+
+3. git add .
+
+4  git commit -m "메세지 입력하기"
+
+5. git pull origin hds
+
+6. git pull orighin hds
