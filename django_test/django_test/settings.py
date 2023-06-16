@@ -37,6 +37,17 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'konlpy',
+    'matplotlib',
+    'numpy',
+    'nltk',
+    'pandas',
+    'requests',
+    'scikit-learn',
+    'seaborn',
+    'xgboost',
+    'scipy',
+    'beautifulsoup4'
 ]
 
 MIDDLEWARE = [
