@@ -1,3 +1,0 @@
-"wys test 1" 
-"wys test 2"  
-"wys test 3"
