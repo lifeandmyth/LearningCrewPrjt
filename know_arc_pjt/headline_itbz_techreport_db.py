@@ -43,7 +43,7 @@ html = ''
 page = 1
 view_mobile = find(wait, "div.user-intro > .item:nth-child(2) > a")
 view_mobile.click()
-while page <= 10:
+while page <= 100:
   try:
     # Scroll down to bottom
     
@@ -104,6 +104,16 @@ for li in ulbody:
     news_writer = news_writer.replace(' 기자', '')
     # print(news_writer)
 
+     # Thumbnail 주소
+    attr2 = li.select_one("a.thumb > img")
+    # print(attr2)
+    thumb_addr = ""
+    try:
+      thumb_addr = "https://www.cwn.kr" + attr2["src"] # 태그['속성'] -> '값'을 반환
+      # print(thumb_addr)
+    except:
+      pass
+
     # 게시물 링크의 soup
     res_in = req.get(url_in)
     soup_in = BS(res_in.text, "html.parser")
@@ -125,7 +135,7 @@ for li in ulbody:
     # print(tags_string)
 
     # 모든 crawling한 내용물을 news_t_list에 입력
-    news_t_list.append([news_date, news_title, news_text_sm, url_in, news_writer, tags_string])
+    news_t_list.append([news_date, news_title, news_text_sm, url_in, news_writer, tags_string, thumb_addr])
 
 
 # print(news_t_list)
@@ -139,7 +149,7 @@ driver.close()
 import csv
 
 # 저장 경로 생성하기
-save_dir = "news_t_data/"
+save_dir = "news_itbz_data/"
 os.makedirs(save_dir, exist_ok=True) 
 
 # 저장할 파일 이름 구하기
@@ -159,7 +169,8 @@ with open(file_path, "w", newline="", encoding="utf-8") as f:
     'news_text_sm',
     'url_in',
     'news_writer',
-    'tags_string'
+    'tags_string',
+    'thumb_addr'
 
   ]
   csv_writer.writerow(head)
