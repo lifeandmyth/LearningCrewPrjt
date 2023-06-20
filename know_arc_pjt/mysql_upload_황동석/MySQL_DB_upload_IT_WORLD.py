@@ -29,25 +29,23 @@ cur = conn.cursor()
 
 
 # itbz_cwl_data 테이블 만들기
-sql_recentit_data_t ="""
-CREATE TABLE IF NOT EXISTS sql_recentit_data(
-idx INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-news_id INT NOT NULL, 
-news_title VARCHAR(80) NOT NULL, 
+sql_itworld_data_t ="""
+CREATE TABLE IF NOT EXISTS sql_itworld_data(
+idx INT NOT NULL PRIMARY KEY AUTO_INCREMENT, 
 news_date VARCHAR(20) NOT NULL, 
+news_title VARCHAR(80) NOT NULL, 
 news_text_sm MEDIUMTEXT NOT NULL, 
 url_in VARCHAR(100) NOT NULL,
-thumb_addr VARCHAR(100) NOT NULL,
 news_writer CHAR(20) NOT NULL,
-tags_string VARCHAR(100),
-news_key VARCHAR(20) NOT NULL
+tags_string VARCHAR(150),
+thumb_addr VARCHAR(100) NOT NULL
 )
 """
 
 # # sql_cwn_data_t 실행하기
 # cur.execute(sql_cwn_data_t)
 # sql_itbz_data_t 실행하기
-cur.execute(sql_recentit_data_t)
+cur.execute(sql_itworld_data_t)
 
 # csv파일을 넣기
 import csv
@@ -55,7 +53,7 @@ import csv
 # # cwn csv 읽어오기
 # f = open('know_arc_pjt/data_crawling_D/data_crawling_김경민/cwn.kr/2023-06-20-12.csv','r', encoding='utf8')
 # itbiz csv tech 
-f = open('know_arc_pjt/data_crawling_D/data_crawling_황동석/요즘IT_Crawling.CSV','r', encoding='utf8')
+f = open('know_arc_pjt/data_crawling_D/data_crawling_김경민/itbiznews.com/news_itbz_data/2023-06-19-20.csv','r', encoding='utf8')
 rdr = csv.reader(f)
 next(rdr)
 
@@ -67,17 +65,8 @@ for line in rdr:
 f.close()
 
 
-# total_news_list = []
-# for a in news_t_list:
-#     # a.append(now_t)
-#     total_news_list.append(a)
-# # print(total_news_list) 
-
-# # cwn_cwl_data에 데이터 입력하기
-# cur.executemany("INSERT INTO cwn_cwl_data(news_date, news_title, news_text_sm, url_in, news_writer, tags_string, thumb_addr) VALUES (%s,%s,%s,%s,%s,%s,%s)", total_news_list)
-
 # itbz_cwl_data에 데이터 입력하기
-cur.executemany("INSERT INTO sql_recentit_data(news_id, news_title, news_date, news_text_sm, url_in, thumb_addr, news_writer, news_key ) VALUES (%s,%s,%s,%s,%s,%s,%s,%s)", total_news_list)
+cur.executemany("INSERT INTO sql_itworld_data(news_date, news_title, news_text_sm, url_in, news_writer, tags_string, thumb_addr) VALUES (%s,%s,%s,%s,%s,%s,%s)", total_news_list)
 
 # db 적용, 트랜젝션 종료
 conn.commit()
