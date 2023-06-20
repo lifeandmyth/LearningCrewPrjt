@@ -86,6 +86,8 @@ for li in ulbody:
     # 현찰 - 사실 때
     # cash_buy = tr.select_one("td:nth-child(2) + td").get_text(strip=True)
     news_text_sm = li.select_one(".lead.line-6x2 > a").get_text(strip=True)
+    news_text_sm = news_text_sm.replace("\n",'')
+    news_text_sm = news_text_sm.strip()
     news_text_sm = news_text_sm.replace(",",'')
     news_text_sm = news_text_sm.replace('""','')
     # 해당 게시물 링크의 페이지로 들어가 크롤링
