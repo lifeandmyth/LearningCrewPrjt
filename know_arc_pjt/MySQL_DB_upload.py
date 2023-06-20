@@ -9,10 +9,10 @@ with conn:
   cur = conn.cursor()
   # DB 만들기
   sql_db_drop = """
-    DROP DATABASE IF EXISTS cwn_cwl_db;
+    DROP DATABASE IF EXISTS news_cwl_data;
   """
   sql_db = """
-    CREATE DATABASE cwn_cwl_db DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+    CREATE DATABASE news_cwl_data DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
   """
   cur.execute(sql_db_drop)
   cur.execute(sql_db)
@@ -22,7 +22,7 @@ with conn:
   # for data in cur:
   #   print(data)
 
-db = "cwn_cwl_db"
+db = "news_cwl_data"
 conn = pymysql.connect(host=host, port=port, user=user, password=password, db=db, charset=charset)
 # 커서 만들기
 cur = conn.cursor()
@@ -37,7 +37,8 @@ news_title VARCHAR(80) NOT NULL,
 news_text_sm MEDIUMTEXT NOT NULL, 
 url_in VARCHAR(100) NOT NULL,
 news_writer CHAR(10) NOT NULL,
-tags_string VARCHAR(150) 
+tags_string VARCHAR(150),
+thumb_addr VARCHAR(100) NOT NULL
 )
 """
 cur.execute(sql_cwn_data_t)
@@ -46,14 +47,15 @@ cur.execute(sql_cwn_data_t)
 # csv파일을 넣기
 import csv
 
-f = open('/data_crawling_D/data_crawling_김경민/cwn.kr/2023-06-19-20.csv','r')
+f = open('know_arc_pjt/data_crawling_D/data_crawling_김경민/cwn.kr/2023-06-19-20.csv','r', encoding='utf8')
 rdr = csv.reader(f)
+next(rdr)
 
 # 2차원 리스트 만들기
 total_news_list = []
 for line in rdr:
     total_news_list.append(line)
-    print(total_news_list)
+    # print(total_news_list)
 f.close()
 
 
@@ -63,7 +65,7 @@ f.close()
 #     total_news_list.append(a)
 # # print(total_news_list) 
 
-cur.executemany("INSERT INTO cwn_cwl_data(news_date, news_title, news_text_sm, url_in, news_writer, tags_string) VALUES (%s,%s,%s,%s,%s,%s)", total_news_list)
+cur.executemany("INSERT INTO cwn_cwl_data(news_date, news_title, news_text_sm, url_in, news_writer, tags_string, thumb_addr) VALUES (%s,%s,%s,%s,%s,%s,%s)", total_news_list)
 
 # db 적용, 트랜젝션 종료
 conn.commit()
