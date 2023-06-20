@@ -47,7 +47,9 @@ INSTALLED_APPS = [
     'seaborn',
     'xgboost',
     'scipy',
-    'beautifulsoup4'
+    'beautifulsoup4',
+    'pymysql'
+    'wordcloud'
 ]
 
 MIDDLEWARE = [
