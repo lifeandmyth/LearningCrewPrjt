@@ -42,7 +42,7 @@ def find(wait, css_selector):
 
 html = ''
 page = 1
-while page <= 120:
+while page <= 110:
   try:
     # Scroll down to bottom
     driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
@@ -79,9 +79,9 @@ for li in ulbody:
     # news_title = li.select_one("div.view-cont > h4.titles > a").get_text(strip=True)
     # print(news_title)
     # 숫자 네번째 자리수에 붙는 , 제거하기(replace)
-    # news_title = news_title.replace(",",'')
-    # news_title = news_title.replace('""','')
-    # news_title = news_title.replace("''",'')
+    news_title = news_title.replace(",",'')
+    news_title = news_title.replace('""','')
+    news_title = news_title.replace("''",'')
 
     # 현찰 - 사실 때
     # cash_buy = tr.select_one("td:nth-child(2) + td").get_text(strip=True)
