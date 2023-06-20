@@ -20,7 +20,7 @@ conn = pymysql.connect(host=host, port=port, user=user, password=password, chars
 #   # 해당 연결의 현존하는 db 목록 뽑기
 #   cur.execute("SHOW DATABASES")
 #   # for data in cur:
-#   #   print(data)
+  #   print(data)
 
 db = "news_cwl_data"
 conn = pymysql.connect(host=host, port=port, user=user, password=password, db=db, charset=charset)
@@ -28,17 +28,19 @@ conn = pymysql.connect(host=host, port=port, user=user, password=password, db=db
 cur = conn.cursor()
 
 
-# itbz_cwl_data 테이블 만들기
+# sql_cwn_data_t 테이블 만들기
 sql_itworld_data_t ="""
 CREATE TABLE IF NOT EXISTS sql_itworld_data(
-idx INT NOT NULL PRIMARY KEY AUTO_INCREMENT, 
-news_date VARCHAR(20) NOT NULL, 
+idx INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+news_id int NOT NULL, 
+url_in VARCHAR(100) NOT NULL,
+thumb_addr VARCHAR(250) NOT NULL,
 news_title VARCHAR(80) NOT NULL, 
 news_text_sm MEDIUMTEXT NOT NULL, 
-url_in VARCHAR(100) NOT NULL,
+news_key VARCHAR(30) NOT NULL,
+news_date VARCHAR(20) NOT NULL, 
 news_writer CHAR(20) NOT NULL,
-tags_string VARCHAR(150),
-thumb_addr VARCHAR(100) NOT NULL
+tags_string VARCHAR(150)
 )
 """
 
@@ -53,7 +55,7 @@ import csv
 # # cwn csv 읽어오기
 # f = open('know_arc_pjt/data_crawling_D/data_crawling_김경민/cwn.kr/2023-06-20-12.csv','r', encoding='utf8')
 # itbiz csv tech 
-f = open('know_arc_pjt/data_crawling_D/data_crawling_김경민/itbiznews.com/news_itbz_data/2023-06-19-20.csv','r', encoding='utf8')
+f = open('know_arc_pjt/data_crawling_D/data_crawling_황동석/IT_WORLD_Crawling_최종_처리된.CSV','r', encoding='utf8')
 rdr = csv.reader(f)
 next(rdr)
 
@@ -65,8 +67,27 @@ for line in rdr:
 f.close()
 
 
+# total_news_list = []
+# for a in news_t_list:
+#     # a.append(now_t)
+#     total_news_list.append(a)
+# # print(total_news_list) 
+
+# # cwn_cwl_data에 데이터 입력하기
+# cur.executemany("INSERT INTO cwn_cwl_data(news_date, news_title, news_text_sm, url_in, news_writer, tags_string, thumb_addr) VALUES (%s,%s,%s,%s,%s,%s,%s)", total_news_list)
+
 # itbz_cwl_data에 데이터 입력하기
-cur.executemany("INSERT INTO sql_itworld_data(news_date, news_title, news_text_sm, url_in, news_writer, tags_string, thumb_addr) VALUES (%s,%s,%s,%s,%s,%s,%s)", total_news_list)
+cur.executemany("INSERT INTO sql_itworld_data(news_id, url_in, thumb_addr, news_title, news_text_sm, news_key, news_date, news_writer ) VALUES (%s,%s,%s,%s,%s,%s,%s,%s)", total_news_list)
+
+# news_id int NOT NULL, 
+# url_in VARCHAR(100) NOT NULL,
+# thumb_addr VARCHAR(100) NOT NULL,
+# news_title VARCHAR(80) NOT NULL, 
+# news_text_sm MEDIUMTEXT NOT NULL, 
+# news_key VARCHAR(30) NOT NULL,
+# news_date VARCHAR(20) NOT NULL, 
+# news_writer CHAR(20) NOT NULL,
+# tags_string VARCHAR(150)
 
 # db 적용, 트랜젝션 종료
 conn.commit()

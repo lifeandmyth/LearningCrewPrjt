@@ -37,7 +37,7 @@ news_title VARCHAR(80) NOT NULL,
 news_date VARCHAR(20) NOT NULL, 
 news_text_sm MEDIUMTEXT NOT NULL, 
 url_in VARCHAR(100) NOT NULL,
-thumb_addr VARCHAR(100) NOT NULL,
+thumb_addr LONGTEXT NOT NULL,
 news_writer CHAR(20) NOT NULL,
 tags_string VARCHAR(100),
 news_key VARCHAR(20) NOT NULL
@@ -77,7 +77,7 @@ f.close()
 # cur.executemany("INSERT INTO cwn_cwl_data(news_date, news_title, news_text_sm, url_in, news_writer, tags_string, thumb_addr) VALUES (%s,%s,%s,%s,%s,%s,%s)", total_news_list)
 
 # itbz_cwl_data에 데이터 입력하기
-cur.executemany("INSERT INTO sql_recentit_data(news_id, news_title, news_date, news_text_sm, url_in, thumb_addr, news_writer, news_key ) VALUES (%s,%s,%s,%s,%s,%s,%s,%s)", total_news_list)
+cur.executemany("INSERT INTO sql_recentit_data(news_id, news_title, news_date, news_text_sm, url_in, thumb_addr, news_writer, news_key) VALUES (%s,%s,%s,%s,%s,%s,%s,%s)", total_news_list)
 
 # db 적용, 트랜젝션 종료
 conn.commit()
