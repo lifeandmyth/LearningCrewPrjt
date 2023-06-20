@@ -29,25 +29,46 @@ cur = conn.cursor()
 
 # table 만들기
 # news_t_list.append([news_date, news_title, news_text_sm, url_in, news_writer, tags_string])
-sql_cwn_data_t ="""
-CREATE TABLE IF NOT EXISTS cwn_cwl_data(
+
+# # cwn_cwl_data 테이블 만들기
+# sql_cwn_data_t ="""
+# CREATE TABLE IF NOT EXISTS cwn_cwl_data(
+# idx INT NOT NULL PRIMARY KEY AUTO_INCREMENT, 
+# news_date VARCHAR(20) NOT NULL, 
+# news_title VARCHAR(80) NOT NULL, 
+# news_text_sm MEDIUMTEXT NOT NULL, 
+# url_in VARCHAR(100) NOT NULL,
+# news_writer CHAR(10) NOT NULL,
+# tags_string VARCHAR(150),
+# thumb_addr VARCHAR(100) NOT NULL
+# )
+# """
+# itbz_cwl_data 테이블 만들기
+sql_itbz_data_t ="""
+CREATE TABLE IF NOT EXISTS itbz_cwl_data(
 idx INT NOT NULL PRIMARY KEY AUTO_INCREMENT, 
 news_date VARCHAR(20) NOT NULL, 
 news_title VARCHAR(80) NOT NULL, 
 news_text_sm MEDIUMTEXT NOT NULL, 
 url_in VARCHAR(100) NOT NULL,
-news_writer CHAR(10) NOT NULL,
+news_writer CHAR(20) NOT NULL,
 tags_string VARCHAR(150),
 thumb_addr VARCHAR(100) NOT NULL
 )
 """
-cur.execute(sql_cwn_data_t)
 
+# # sql_cwn_data_t 실행하기
+# cur.execute(sql_cwn_data_t)
+# sql_itbz_data_t 실행하기
+cur.execute(sql_itbz_data_t)
 
 # csv파일을 넣기
 import csv
 
-f = open('know_arc_pjt/data_crawling_D/data_crawling_김경민/cwn.kr/2023-06-19-20.csv','r', encoding='utf8')
+# # cwn csv 읽어오기
+# f = open('know_arc_pjt/data_crawling_D/data_crawling_김경민/cwn.kr/2023-06-20-12.csv','r', encoding='utf8')
+# itbiz csv tech 
+f = open('know_arc_pjt/data_crawling_D/data_crawling_김경민/itbiznews.com/news_itbz_data/2023-06-19-20.csv','r', encoding='utf8')
 rdr = csv.reader(f)
 next(rdr)
 
@@ -65,7 +86,11 @@ f.close()
 #     total_news_list.append(a)
 # # print(total_news_list) 
 
-cur.executemany("INSERT INTO cwn_cwl_data(news_date, news_title, news_text_sm, url_in, news_writer, tags_string, thumb_addr) VALUES (%s,%s,%s,%s,%s,%s,%s)", total_news_list)
+# # cwn_cwl_data에 데이터 입력하기
+# cur.executemany("INSERT INTO cwn_cwl_data(news_date, news_title, news_text_sm, url_in, news_writer, tags_string, thumb_addr) VALUES (%s,%s,%s,%s,%s,%s,%s)", total_news_list)
+
+# itbz_cwl_data에 데이터 입력하기
+cur.executemany("INSERT INTO itbz_cwl_data(news_date, news_title, news_text_sm, url_in, news_writer, tags_string, thumb_addr) VALUES (%s,%s,%s,%s,%s,%s,%s)", total_news_list)
 
 # db 적용, 트랜젝션 종료
 conn.commit()
