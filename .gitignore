@@ -178,4 +178,4 @@ pyrightconfig.json
 ## 추가로 ignore할 목록
 lc_pjt_venv/
 media/
-data/
+# data/
