@@ -50,6 +50,8 @@ INSTALLED_APPS = [
     'beautifulsoup4',
     'pymysql'
     'wordcloud'
+    'jupyter notebook',
+    'ipykernel'
 ]
 
 MIDDLEWARE = [
