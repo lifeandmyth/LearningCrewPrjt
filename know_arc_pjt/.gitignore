@@ -161,6 +161,8 @@ cython_debug/
 
 
 # 추가 ignore 목록
+../lc_pjt_venv/
 lc_pjt_venv/
 media/
 data/
+assets/
