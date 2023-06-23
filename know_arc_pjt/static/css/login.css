@@ -3,7 +3,7 @@ min-height: 100vh;
 }
 
 .bg-image {
-background-image: url('/static/assets/ark.png');
+background-image: url('../assets/ark.png');
 background-size: cover;
 background-position: center;
 }

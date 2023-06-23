@@ -32,6 +32,7 @@ urlpatterns = [
     # knowark's addition
     path('', main, name='knowark'),
     
+    
     # path("accounts/", include("django.contrib.auth.urls")),
     path('accounts/', include('allauth.urls')),  # allauth path
 
