@@ -176,6 +176,8 @@ pyrightconfig.json
 # End of https://www.toptal.com/developers/gitignore/api
 
 ## 추가로 ignore할 목록
+../lc_pjt_venv/
 lc_pjt_venv/
 media/
 data/
+assets/

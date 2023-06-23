@@ -16,9 +16,25 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+# django's default
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+
+# knowark's addition
+from main.views import main
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
+    # django's default
     path('admin/', admin.site.urls),
+
+    # knowark's addition
+    path('', main, name='knowark'),
+    
+    # path("accounts/", include("django.contrib.auth.urls")),
+    path('accounts/', include('allauth.urls')),  # allauth path
+
+    path('', include('main.urls')),
+    path('', include('django.contrib.auth.urls')),
 ]
