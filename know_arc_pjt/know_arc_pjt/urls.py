@@ -24,6 +24,7 @@ from django.urls import path, include
 from main.views import main
 from django.conf import settings
 from django.conf.urls.static import static
+from keyword_chart.views import keyword_chart
 
 urlpatterns = [
     # django's default
@@ -37,4 +38,6 @@ urlpatterns = [
 
     path('', include('main.urls')),
     path('', include('django.contrib.auth.urls')),
+    
+
 ]

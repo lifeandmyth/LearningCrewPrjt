@@ -14,3 +14,30 @@ class CustomUser(AbstractUser):
     )
     career = models.CharField(verbose_name='경력', max_length=3, choices=CAREER, unique=True, null=True)
     affiliation = models.CharField(verbose_name='소속', max_length=256, blank=True)
+    
+    # # Register your models here.
+# class CustomUserAdmin(UserAdmin):
+#     model = CustomUser
+     
+#     # add page
+#     add_form = CustomUserCreationForm
+#     add_fieldsets = [
+#         ('NAME', {'fields': ['first_name', 'last_name']}),
+#         ('PERSONAL INFO', {'fields': ['career', 'affiliation']}),
+#         ('PERMISSIONS', {'fields': ['is_active', 'is_staff', 'is_superuser']})
+#     ]
+     
+#     # # change page
+#     # form = CustomUserChangeForm
+#     # fieldsets = [
+#     #     ('NAME', {'fields': ['first_name', 'last_name']}),
+#     #     ('PERSONAL INFO', {'fields': ['career', 'affiliation']}),
+#     #     ('PERMISSIONS', {'fields': ['is_active', 'is_staff', 'is_superuser']}),
+#     # ]
+     
+#     # list page
+#     list_display = ['username', 'email', 'career', 'affiliation']
+ 
+ 
+# admin.site.register(CustomUser, CustomUserAdmin)
+

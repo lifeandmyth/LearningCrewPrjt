@@ -30,7 +30,7 @@ SECRET_KEY = 'django-insecure-i=-p7@66-0zequpew*jzec-2mt__#r0u@e9#n5^nxiif158w6+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'mysql-database-1.cwwkiefelujg.ap-northeast-2.rds.amazonaws.com']
 
 
 # Application definition
@@ -51,6 +51,8 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google',  #google sign
 
     'main',
+    # 20230623 김경민 app 추가
+    'keyword_chart',
 ]
 
 MIDDLEWARE = [
@@ -68,7 +70,8 @@ ROOT_URLCONF = 'know_arc_pjt.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, "templates")],
+        # 'DIRS': [os.path.join(BASE_DIR, "templates")],
+        'DIRS': [BASE_DIR / 'keyword_chart' / "templates"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -90,8 +93,16 @@ WSGI_APPLICATION = 'know_arc_pjt.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql', # mysql db 엔진 사용
+        'NAME': 'know_arc_pjt', # 연동할 초기 db명
+        'USER': 'kkm_admin', # DB 접속 계정
+        'PASSWORD': '12345678', # DB 접속 계정 패스워드
+        'HOST': 'mysql-database-1.cwwkiefelujg.ap-northeast-2.rds.amazonaws.com', # localhost ip 주소
+        'PORT': '3306', # 공백은 default 3306
+        'OPTIONS':{
+            'init_command' : "SET sql_mode='STRICT_TRANS_TABLES'"
+        }
+
     }
 }
 
