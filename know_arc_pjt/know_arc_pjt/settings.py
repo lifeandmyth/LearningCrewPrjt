@@ -42,6 +42,23 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+<<<<<<< HEAD:django_test/django_test/settings.py
+    'konlpy',
+    'matplotlib',
+    'numpy',
+    'nltk',
+    'pandas',
+    'requests',
+    'scikit-learn',
+    'seaborn',
+    'xgboost',
+    'scipy',
+    'beautifulsoup4',
+    'pymysql'
+    'wordcloud'
+    'jupyter notebook',
+    'ipykernel'
+=======
 
     # allauth lib 설정
     'django.contrib.sites',
@@ -51,6 +68,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google',  #google sign
 
     'main',
+>>>>>>> 98715068f458d19a9779161ccc36edd23a707b22:know_arc_pjt/know_arc_pjt/settings.py
 ]
 
 MIDDLEWARE = [
