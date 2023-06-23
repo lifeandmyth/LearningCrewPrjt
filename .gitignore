@@ -179,7 +179,5 @@ pyrightconfig.json
 ../lc_pjt_venv/
 lc_pjt_venv/
 media/
-settings.py/
 data/
-requirements.txt/
-asset/
+assets/
