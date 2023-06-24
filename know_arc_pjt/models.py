@@ -173,8 +173,8 @@ class MainTechworld(models.Model):
 
 
 class NewsSites(models.Model):
-    news_site = models.CharField(max_length=30, blank=True, null=True)
-    site_code = models.CharField(max_length=30, blank=True, null=True)
+    news_site = models.CharField(primary_key=True, max_length=30)
+    site_code = models.CharField(max_length=30)
 
     class Meta:
         managed = False
@@ -182,14 +182,15 @@ class NewsSites(models.Model):
 
 
 class NewsTechworldT(models.Model):
-    news_date = models.CharField(max_length=20, blank=True, null=True)
-    news_title = models.CharField(max_length=80, blank=True, null=True)
+    idx = models.AutoField(primary_key=True)
+    news_date = models.CharField(max_length=20)
+    news_title = models.CharField(max_length=80)
     news_text_sm = models.TextField()
-    url_in = models.CharField(max_length=100, blank=True, null=True)
-    news_writer = models.CharField(max_length=20, blank=True, null=True)
+    url_in = models.CharField(max_length=100)
+    news_writer = models.CharField(max_length=20)
     tags_string = models.CharField(max_length=150, blank=True, null=True)
     thumb_addr = models.CharField(max_length=100, blank=True, null=True)
-    news_site = models.CharField(max_length=30, blank=True, null=True)
+    news_site = models.ForeignKey(NewsSites, models.DO_NOTHING, db_column='news_site')
 
     class Meta:
         managed = False

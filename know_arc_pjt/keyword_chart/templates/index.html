@@ -1,13 +1,65 @@
 {% load static %}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  </html>
 <table class="table-contents" style="padding:10px">
   <tr>
-    <th>제목</th>
-    <th>내용</th>
+    <th>news_site</th>
+    <th>site_code</th>
   </tr>
   {% for post in posts %}
   <tr>
-    <td>{{post.post_title}}</td>
-    <td>{{post.post_content}}</td>
+    <td>{{post.news_site}}</td>
+    <td>{{post.site_code}}</td>
   </tr>
   {%endfor%}
 </table>
+<div class="chart-wrapper">
+  <div class="bar_c_area" style="height: 300px; width: 400px;">
+      <canvas id='bar_c'>
+
+      </canvas>
+  </div>
+  <div class="line_c_area" style="height: 300px; width: 400px;">
+      <canvas id='line_c'>
+
+      </canvas>
+  </div>
+</div>
+</body>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+
+<script>
+  const ctx = document.getElementById('bar_c');
+
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      label: "키워드들",
+      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+      datasets: [{
+        label: '1년간 키워드 등장 빈도수',
+        backgroundColor: 'rgba(103,59,167,0.1)',
+        hoverBackgroundColor: 'rgba(103,59,167,0.5)',
+        borderColor: 'rgba(103,59,167,1)',
+        borderWidth: 1,
+        data: [12, 19, 3, 5, 2, 3],
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+</script>
