@@ -2,7 +2,6 @@ anyio==3.7.0
 argon2-cffi==21.3.0
 argon2-cffi-bindings==21.2.0
 arrow==1.2.3
-asgiref==3.7.2
 asttokens==2.2.1
 async-generator==1.10
 async-lru==2.0.2
@@ -24,8 +23,6 @@ cycler==0.11.0
 debugpy==1.6.7
 decorator==5.1.1
 defusedxml==0.7.1
-Django==4.2.2
-django-allauth==0.54.0
 exceptiongroup==1.1.1
 executing==1.2.0
 fastjsonschema==2.17.1
@@ -41,7 +38,7 @@ isoduration==20.11.0
 jedi==0.18.2
 Jinja2==3.1.2
 joblib==1.2.0
-JPype1 @ file:///C:/playdata_lab/teamProject2/JPype1-1.4.0-cp39-cp39-win_amd64.whl#sha256=3dcfee215e949acd79eccffbfae62b88c688200db3b326eef1cdca58bb08de91
+JPype1 @ file:///C:/playdata_lab/LearningCrewPrjt/JPype1-1.4.0-cp39-cp39-win_amd64.whl#sha256=3dcfee215e949acd79eccffbfae62b88c688200db3b326eef1cdca58bb08de91
 json5==0.9.14
 jsonpointer==2.3
 jsonschema==4.17.3
@@ -62,7 +59,6 @@ MarkupSafe==2.1.3
 matplotlib==3.7.1
 matplotlib-inline==0.1.6
 mistune==2.0.5
-mysqlclient==2.2.0
 nbclient==0.8.0
 nbconvert==7.4.0
 nbformat==5.9.0
@@ -70,7 +66,6 @@ nest-asyncio==1.5.6
 nltk==3.8.1
 notebook_shim==0.2.3
 numpy==1.24.3
-oauthlib==3.2.2
 outcome==1.2.0
 overrides==7.3.1
 packaging==23.1
@@ -86,7 +81,6 @@ psutil==5.9.5
 pure-eval==0.2.2
 pycparser==2.21
 Pygments==2.15.1
-PyJWT==2.7.0
 PyMySQL==1.0.3
 pyparsing==3.0.9
 pyrsistent==0.19.3
@@ -94,7 +88,6 @@ PySocks==1.7.1
 python-dateutil==2.8.2
 python-dotenv==1.0.0
 python-json-logger==2.0.7
-python3-openid==3.2.0
 pytz==2023.3
 pywin32==306
 pywinpty==2.0.10
@@ -102,10 +95,8 @@ PyYAML==6.0
 pyzmq==25.1.0
 regex==2023.6.3
 requests==2.31.0
-requests-oauthlib==1.3.1
 rfc3339-validator==0.1.4
 rfc3986-validator==0.1.1
-rouge==1.0.1
 scikit-learn==1.2.2
 scipy==1.10.1
 seaborn==0.12.2
@@ -116,7 +107,6 @@ sklearn==0.0.post5
 sniffio==1.3.0
 sortedcontainers==2.4.0
 soupsieve==2.4.1
-sqlparse==0.4.4
 stack-data==0.6.2
 terminado==0.17.1
 threadpoolctl==3.1.0
@@ -136,6 +126,5 @@ webcolors==1.13
 webdriver-manager==3.8.6
 webencodings==0.5.1
 websocket-client==1.5.3
-wordcloud==1.9.2
 wsproto==1.2.0
 zipp==3.15.0
