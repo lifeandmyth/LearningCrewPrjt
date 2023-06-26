@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import (BaseUserManager, AbstractBaseUser)
  
 
 # Create your models here.
@@ -9,44 +9,15 @@ from django.contrib.auth.models import AbstractUser
 
 
  # user models.py
-class CustomUser(AbstractUser):
-    id = models.BigAutoField(primary_key=True)
-    # password = models.CharField(max_length=128)
-    password = models.CharField(max_length=128, unique=False)
-    last_login = models.DateTimeField(blank=True, null=True)
-    is_superuser = models.IntegerField()
-    username = models.CharField(unique=True, max_length=150)
-    # email = models.CharField(max_length=254)
-    email = models.CharField(max_length=254, unique=False, blank=True, null=True)
-    is_staff = models.IntegerField()
-    is_active = models.IntegerField()
-    date_joined = models.DateTimeField()
+# class CustomUser(AbstractUser):
 
-    CAREER = (
-        ('주니어', '신입 ~ 5년차'),
-        ('시니어', '5년차 이상')
-    )
-    KEYWORDS = (
-        ('AI', 'AI'),
-        ('출시', '출시'),
-        ('개발', '개발'),
-        ('코딩', '코딩'),
-        ('클라우드', '클라우드'),
-        ('공개', '공개'),
-        ('서비스' ,'서비스'),
-        ('언어', '언어'),
-        ('프로그래밍', '프로그래밍'),
-        ('기반', '기반')
-    )
-    career = models.CharField(verbose_name='경력', max_length=3, choices=CAREER, null=True)
-    career_keyword = models.CharField(verbose_name='관심 키워드', choices=KEYWORDS, help_text = '올해의 IT키워드 10개입니다! 가장 관심 있는 항목에 체크해주세요!', max_length=100, default= None, null=True)
-    affiliation = models.CharField(verbose_name='소속', max_length=256, blank=True)
-
-    class Meta:
-        managed = False
-        db_table = 'main_customuser'
-
-
+#     # 추가 필드 (career, affiliation)
+#     CAREER = (
+#         ('주니어', '신입 ~ 5년차'),
+#         ('시니어', '5년차 이상')
+#     )
+#     career = models.CharField(verbose_name='경력', max_length=3, choices=CAREER, unique=True, null=True)
+#     affiliation = models.CharField(verbose_name='소속', max_length=256, blank=True)
 
 
 
@@ -56,6 +27,85 @@ class AuthGroup(models.Model):
     class Meta:
         managed = False
         db_table = 'auth_group'
+
+
+
+
+
+class UserManager(BaseUserManager):
+    def create_user(self, email, date_of_birth, password=None):
+        if not email:
+            raise ValueError('Users must have an email address')
+
+        user = self.model(
+            email=self.normalize_email(email),
+            date_of_birth=date_of_birth,
+        )
+
+        user.set_password(password)
+        user.save(using=self._db)
+        return user
+
+    def create_superuser(self, email, date_of_birth, password):
+        user = self.create_user(
+            email,
+            password=password,
+            date_of_birth=date_of_birth,
+        )
+        user.is_admin = True
+        user.save(using=self._db)
+        return user
+
+
+
+
+
+class User(AbstractBaseUser):
+    
+    # 추가 필드 (career, affiliation)
+    CAREER = (
+        ('주니어', '신입 ~ 5년차'),
+        ('시니어', '5년차 이상')
+    )
+    career = models.CharField(verbose_name='경력', max_length=3, choices=CAREER, unique=True, null=True)
+    affiliation = models.CharField(verbose_name='소속', max_length=256, blank=True)
+
+
+    email = models.EmailField(
+        verbose_name='email',
+        max_length=255,
+        unique=False,
+    )
+    date_of_birth = models.DateField()
+    is_active = models.BooleanField(default=True)
+    is_admin = models.BooleanField(default=False)
+
+    objects = UserManager()
+
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['date_of_birth']
+
+    def __str__(self):
+        return self.email
+
+    def has_perm(self, perm, obj=None):
+        return True
+
+    def has_module_perms(self, app_label):
+        return True
+
+    @property
+    def is_staff(self):
+        return self.is_admin
+
+
+
+
+
+
+
+
+
 
 
 
@@ -194,26 +244,8 @@ class MainCustomuser(models.Model):
     is_staff = models.IntegerField()
     is_active = models.IntegerField()
     date_joined = models.DateTimeField()
-
-    CAREER = (
-        ('주니어', '신입 ~ 5년차'),
-        ('시니어', '5년차 이상')
-    )
-    KEYWORDS = (
-        ('AI', 'AI'),
-        ('출시', '출시'),
-        ('개발', '개발'),
-        ('코딩', '코딩'),
-        ('클라우드', '클라우드'),
-        ('공개', '공개'),
-        ('서비스' ,'서비스'),
-        ('언어', '언어'),
-        ('프로그래밍', '프로그래밍'),
-        ('기반', '기반')
-    )
-    career = models.CharField(verbose_name='경력', max_length=3, choices=CAREER, null=True)
-    career_keyword = models.CharField(verbose_name='관심 키워드', choices=KEYWORDS, help_text = '올해의 IT키워드 10개입니다! 가장 관심 있는 항목에 체크해주세요!', max_length=100, default= None, null=True)
-    affiliation = models.CharField(verbose_name='소속', max_length=256, blank=True)
+    career = models.CharField(unique=True, max_length=3, blank=True, null=True)
+    affiliation = models.CharField(max_length=256, blank=True, null=True)
 
     class Meta:
         managed = False
@@ -240,72 +272,6 @@ class MainCustomuserUserPermissions(models.Model):
         managed = False
         db_table = 'main_customuser_user_permissions'
         unique_together = (('customuser', 'permission'),)
-
-
-
-
-
-
-
-
-class KeywordsBloter(models.Model):
-    idx = models.IntegerField(primary_key=True)
-    words = models.CharField(max_length=50)
-    ranks = models.FloatField()
-
-    class Meta:
-        managed = False
-        db_table = 'keywords_bloter'
-
-
-class KeywordsCwn(models.Model):
-    idx = models.IntegerField(primary_key=True)
-    words = models.CharField(max_length=50)
-    ranks = models.FloatField()
-
-    class Meta:
-        managed = False
-        db_table = 'keywords_cwn'
-
-
-class KeywordsItbiz(models.Model):
-    idx = models.IntegerField(primary_key=True)
-    words = models.CharField(max_length=50)
-    ranks = models.FloatField()
-
-    class Meta:
-        managed = False
-        db_table = 'keywords_itbiz'
-
-
-class KeywordsItworld(models.Model):
-    idx = models.IntegerField(primary_key=True)
-    words = models.CharField(max_length=50)
-    ranks = models.FloatField()
-
-    class Meta:
-        managed = False
-        db_table = 'keywords_itworld'
-
-
-class KeywordsRecentit(models.Model):
-    idx = models.IntegerField(primary_key=True)
-    words = models.CharField(max_length=50)
-    ranks = models.FloatField()
-
-    class Meta:
-        managed = False
-        db_table = 'keywords_recentit'
-
-
-class KeywordsTechworld(models.Model):
-    idx = models.IntegerField(primary_key=True)
-    words = models.CharField(max_length=50)
-    ranks = models.FloatField()
-
-    class Meta:
-        managed = False
-        db_table = 'keywords_techworld'
 
 
 class NewsSites(models.Model):
@@ -383,15 +349,6 @@ class SocialaccountSocialtoken(models.Model):
         unique_together = (('app', 'account'),)
 
 
-class TotalKeyRelated(models.Model):
-    key = models.CharField(max_length=50)
-    related = models.CharField(max_length=158)
-
-    class Meta:
-        managed = False
-        db_table = 'total_key_related'
-
-
 class TotalTKeyrank(models.Model):
     idx = models.AutoField(primary_key=True)
     keywords = models.CharField(max_length=100)
@@ -400,30 +357,3 @@ class TotalTKeyrank(models.Model):
     class Meta:
         managed = False
         db_table = 'total_t_keyrank'
-
-
-class TotalTKeywordsRemake(models.Model):
-    idx = models.IntegerField(primary_key=True)
-    words = models.CharField(max_length=50)
-    ranks = models.FloatField()
-
-    class Meta:
-        managed = False
-        db_table = 'total_t_keywords_remake'
-
-
-class TotalnewsKT(models.Model):
-    idx = models.IntegerField(primary_key=True)
-    news_date = models.DateTimeField()
-    news_title = models.CharField(max_length=124)
-    news_text_sm = models.TextField()
-    url_in = models.CharField(max_length=128)
-    news_writer = models.CharField(max_length=50)
-    tags_string = models.CharField(max_length=188, blank=True, null=True)
-    thumb_addr = models.CharField(max_length=228, blank=True, null=True)
-    news_site = models.ForeignKey(NewsSites, on_delete=models.DO_NOTHING, db_column='news_site')
-    total_keywords = models.CharField(max_length=188)
-
-    class Meta:
-        managed = False
-        db_table = 'totalnews_k_t'

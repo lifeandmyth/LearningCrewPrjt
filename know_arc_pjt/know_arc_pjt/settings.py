@@ -49,6 +49,8 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',  #google sign
+    
+    'widget_tweaks',
 
     'main',
 ]
@@ -183,7 +185,7 @@ ACCOUNT_EMAIL_VERIFICATION = 'none'
 ACCOUNT_SIGNUP_REDIRECT_URL = '/'
 LOGIN_REDIRECT_URL = '/'
 ACCOUNT_LOGOUT_ON_GET = True
-ACCOUNT_SINGUP_FORM_CLASS = "main.forms.SignupForm" #main 안의 forms의 SignupForm 사용
+# ACCOUNT_SINGUP_FORM_CLASS = "main.forms.SignupForm" #main 안의 forms의 SignupForm 사용
 
 
 AUTH_USER_MODEL = 'main.CustomUser'

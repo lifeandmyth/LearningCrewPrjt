@@ -72,7 +72,7 @@ body {
     background-image: url('/static/assets/backf.png');
     background-repeat : no-repeat;
     background-size : cover;
-  }
+    }
 
 .mainPart div.searchPart {
     position: relative;
@@ -119,17 +119,17 @@ div.searchPart input {
     color: #fff;
     font-size: 25px;
     border: none;
-	outline: none;
+    outline: none;
 }
 input::-ms-clear,
 input::-ms-reveal{
-	display:none;width:0;height:0;
+    display:none;width:0;height:0;
 }
 input::-webkit-search-decoration,
 input::-webkit-search-cancel-button,
 input::-webkit-search-results-button,
 input::-webkit-search-results-decoration{
-	display:none;
+    display:none;
 }
 
 .searchPart span {
@@ -191,21 +191,30 @@ div.textBox span.textR {
 
 /* 0623 예슬 - 작업 */
 .boardBox .lanking {
-    width: 20%;
+    width: 18%;
+    height: 40%;
     position: absolute;
     top : 11%;
     right: 0;
     margin-right: 2%;
-    padding-left: 2%;
+    background-color: #FFFAFA;
+    border-radius: 50% 40% 30% 30% / 40% 60% 34% 40%;
+}
+/* 
+p.lank_title {
+    width: fit-content;
+    background-color: #46b2a0;
+    border-radius: 50% 40% 30% 30% / 40% 60% 34% 40%;
+} */
+ul.lank_cont {
 }
 
-p.lank_title {
-    
-}
+
+
 
 .boardBox .versus {
     width: 20%;
-    height: 46%;
+    height: 40%;
     position: absolute;
     bottom : 5%;
     right: 0;
@@ -239,4 +248,11 @@ div.senior {
     bottom: 0;
     right: 0;
     margin-bottom: 0;
+}
+
+
+div.jr_words {
+}
+
+div.jr_words a.jr_word {
 }

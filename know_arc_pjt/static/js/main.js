@@ -21,10 +21,14 @@ function searchKeyword(){
     else{
         alert('검색어('+ searchValue +')가 너무 짧습니다.');
     }
+    
 };
 
-document.getElementById('search-input').addEventListener('keyup', function(event){
+document.getElementById('search-input').addEventListener('keydown', function(event){
     if(event.key === 'Enter'){
         searchKeyword();
     }
 });
+
+
+// 동석님 검색

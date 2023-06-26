@@ -1,21 +1,34 @@
 {% extends "account/base.html" %}
 
+
 {% load i18n %}
 
 {% block head_title %}{% trans "Signup" %}{% endblock %}
 
 {% block content %}
-<h1>{% trans "Sign Up" %}</h1>
 
-<p>{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}</p>
+<div style="margin: 8% 32%;">
+  <h1 style="font-family: 'Black Han Sans', sans-serif; font-size: 50px; color: #333;">{% trans "Sign Up" %}</h1>
+  
+  <p>{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}</p>
 
-<form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
-  {% csrf_token %}
-  {{ form.as_p }}
-  {% if redirect_field_value %}
-  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-  {% endif %}
-  <button type="submit">{% trans "Sign Up" %} &raquo;</button>
-</form>
+  <div class="mt-5">
+    <form class="signup position-relative fw-bolder" id="signup_form" method="post" action="{% url 'account_signup' %}">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <!-- <div>
+          <input type="checkbox" name="test_list" value="1">AI
+          <input type="checkbox" name="test_list" value="2">기술
+          <input type="checkbox" name="test_list" value="3">프로그래밍
+          <input type="checkbox" name="test_list" value="4">언어
+      </div> -->
+      {% if redirect_field_value %}
+      <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+      {% endif %}
+      <button type="submit" class="btn btn-primary position-absolute bottom--10 end-0">{% trans "Sign Up" %} &raquo;</button>
+    </form>
+  </div>
+  
+</div>
 
 {% endblock %}

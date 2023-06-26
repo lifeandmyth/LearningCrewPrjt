@@ -22,8 +22,7 @@ from django.urls import path, include
 
 # knowark's addition
 from main.views import main
-from django.conf import settings
-from django.conf.urls.static import static
+
 
 urlpatterns = [
     # django's default
@@ -38,4 +37,6 @@ urlpatterns = [
 
     path('', include('main.urls')),
     path('', include('django.contrib.auth.urls')),
+
+    
 ]
