@@ -159,13 +159,17 @@ def main (request) :
         list_cl = [] 
         
         for tk in total_key_list:
-            list_m.append(tk[0])
-            list_cl.append(tk[2])
+            if tk[1] == total_key_list[i][1]:
+                list_m.append(tk[0])
+                list_cl.append(tk[2])
+            else:
+                pass
         # 2차 리스트 생성
         list_m_row.append(list_m)
         list_cl_row.append(list_cl)
-    print(list_w)
-    # print(list_m_row)
+    # print(list_w)
+    print(list_m_row[0])
+    print(list_m_row[1])
     # print(list_cl_row)
     # print(word_list)
     # print(cloud_key_list)
@@ -173,6 +177,7 @@ def main (request) :
     #         "w_list":w_list, 
     #         "c_list":c_list, 
     print(list_cl_row[0])
+    print(list_cl_row[1])
     context = {
             "month_list_0":list_m_row[0],
             "month_list_1":list_m_row[1],

@@ -47,7 +47,9 @@
         <div class="position-absolute top-50 start-50 translate-middle boardBox">
 
         {% include 'charts.html' %}
-
+        
+        {% comment %} {{ key_list.0 }} {% endcomment %}
+        {% comment %} {% for w in key_list%} '{{w}}', {% endfor %} {% endcomment %}
         </div>
     </div>
 </div>
@@ -59,37 +61,61 @@
 <script>
  
     const data = {
-      label: "'2023년 5월 키워드'",
-        labels: [{% for w in w_list%} ' {{w}}', {% endfor %}],
+      label: "2023년 5월 키워드",
+        labels: [{% for k in key_list%} ' {{k}}', {% endfor %}],
         datasets: [{
-            label: 
+            label: '{{ key_list }}',
             backgroundColor: 'rgb(194, 222, 220,0.2)',
             hoverBackgroundColor: 'rgb(236, 229, 199,0.5)',
             borderColor: 'rgb(17, 106, 123,1)',
             borderWidth: 1,
-            data: [{%for c in c_list%} '{{ c }}', {% endfor %}],
+            data: [{%for c in cnt_list_0%} '{{ c }}', {% endfor %}],
         }]
     };
     const data2 = {
         label: "1년 키워드 추이",
         labels: [{% for m in month_list_0 %} '{{m}}', {% endfor %}],
         datasets: [{
-            label: '',
+            label: '{{ key_list.0 }}',
             backgroundColor: 'rgb(194, 222, 220,0.2)',
             hoverBackgroundColor: 'rgb(236, 229, 199,0.5)',
             borderColor: 'rgb(17, 106, 123,1)',
             borderWidth: 1,
             data: [{%for cl in cnt_list_0 %} '{{ cl }}', {% endfor %}],
-        }]
-        // labels: [{% for m in month_list %} '{{m}}', {% endfor %}],
-        // datasets: [{
-        //     label: '1년간 "클라우드" 등장 빈도수',
-        //     backgroundColor: 'rgb(194, 222, 220,0.2)',
-        //     hoverBackgroundColor: 'rgb(236, 229, 199,0.5)',
-        //     borderColor: 'rgb(17, 106, 123,1)',
-        //     borderWidth: 1,
-        //     data: [{%for cl in cnt_list %} '{{ cl }}', {% endfor %}],
-        // }]
+        },{
+            labels: [{% for m in month_list_1 %} '{{m}}', {% endfor %}],
+            label: '{{ key_list.1 }}',
+            backgroundColor: 'rgb(194, 222, 220,0.2)',
+            hoverBackgroundColor: 'rgb(236, 229, 199,0.5)',
+            borderColor: 'rgb(57, 106, 123,1)',
+            borderWidth: 1,
+            data: [{%for cl in cnt_list_1 %} '{{ cl }}', {% endfor %}],
+        },{
+            labels: [{% for m in month_list_2 %} '{{m}}', {% endfor %}],
+            label: '{{ key_list.2 }}',
+            backgroundColor: 'rgb(194, 222, 220,0.2)',
+            hoverBackgroundColor: 'rgb(236, 229, 199,0.5)',
+            borderColor: 'rgb(107, 106, 123,1)',
+            borderWidth: 1,
+            data: [{%for cl in cnt_list_2 %} '{{ cl }}', {% endfor %}],
+        },{
+            labels: [{% for m in month_list_3 %} '{{m}}', {% endfor %}],
+            label: '{{ key_list.3 }}',
+            backgroundColor: 'rgb(194, 222, 220,0.2)',
+            hoverBackgroundColor: 'rgb(236, 229, 199,0.5)',
+            borderColor: 'rgb(157, 106, 123,1)',
+            borderWidth: 1,
+            data: [{%for cl in cnt_list_3 %} '{{ cl }}', {% endfor %}],
+        },{
+            labels: [{% for m in month_list_4 %} '{{m}}', {% endfor %}],
+            label: '{{ key_list.4 }}',
+            backgroundColor: 'rgb(194, 222, 220,0.2)',
+            hoverBackgroundColor: 'rgb(236, 229, 199,0.5)',
+            borderColor: 'rgb(207, 106, 123,1)',
+            borderWidth: 1,
+            data: [{%for cl in cnt_list_4 %} '{{ cl }}', {% endfor %}],
+        }
+        ]
     };
     // config
     const config = {
