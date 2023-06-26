@@ -132,32 +132,59 @@ def main (request) :
 
     # total_key_list
     # 년별로 집계하기
-    print(total_key_list) 
-    word_list = [] 
-    month_list = []
-    cnt_list = []
-    for tk in total_key_list:
-        if tk[1] == '클라우드':
-            print(tk[0])
-            print(tk[1])
-            print(tk[2])
-            month_list.append(tk[0])
-            word_list.append(tk[1])
-            cnt_list.append(tk[2])
-        else:
-            pass
+    # print(total_key_list) 
+    # word_list = [] 
+    # month_list = []
+    # cnt_list = []
+    # for tk in total_key_list:
+    #     print(tk[0])
+    #     print(tk[1])
+    #     print(tk[2])
+    #     month_list.append(tk[0])
+    #     word_list.append(tk[1])
+    #     cnt_list.append(tk[2])
+        
 
     # 상위 순위 5개만
-    word_list = word_list[:5]
-    print(word_list)
+   
+    list_w = []
+    list_m_row = []
+    list_cl_row = []
+ 
+    for i in range(5):
+        list_w.append(total_key_list[i][1])
+        # 12개월치 카운트
+        # 초기화
+        list_m =[]
+        list_cl = [] 
+        
+        for tk in total_key_list:
+            list_m.append(tk[0])
+            list_cl.append(tk[2])
+        # 2차 리스트 생성
+        list_m_row.append(list_m)
+        list_cl_row.append(list_cl)
+    print(list_w)
+    # print(list_m_row)
+    # print(list_cl_row)
+    # print(word_list)
     # print(cloud_key_list)
     # "w_c_list":w_c_list, 
     #         "w_list":w_list, 
     #         "c_list":c_list, 
+    print(list_cl_row[0])
     context = {
-            "month_list":month_list,
-            "key_list":word_list,
-            "cnt_list":cnt_list
+            "month_list_0":list_m_row[0],
+            "month_list_1":list_m_row[1],
+            "month_list_2":list_m_row[2],
+            "month_list_3":list_m_row[3],
+            "month_list_4":list_m_row[4],
+            "key_list":list_w,
+            "cnt_list_0":list_cl_row[0],
+            "cnt_list_1":list_cl_row[1],
+            "cnt_list_2":list_cl_row[2],
+            "cnt_list_3":list_cl_row[3],
+            "cnt_list_4":list_cl_row[4],
             }
     return render(request, 'main.html', context)
 # close
