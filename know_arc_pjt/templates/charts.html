@@ -1,15 +1,17 @@
-<div class="chart-wrapper">
-  <div class="bar_c_area" style="height: 400px; width: 450px;">
-      <canvas id='bar_c'>
+<div class="chart-wrapper row" style="padding-left: 45px; padding-top: 70px; ">
+  <div class=col-sm-6 style="padding-left:80px;background-color: white;">
+    <div class="bar_c_area float-left" >
+      <canvas id='bar_c' style="width: 810px; height: 250px; margin-bottom: 10px">
       </canvas>
+    </div>
+    <div class="line_c_area float-left">
+        <canvas id='line_c' style="width: 810px; height: 250px;">
+        </canvas>
+    </div>
   </div>
-  <div class="line_c_area" style="height: 400px; width: 450px;">
-      <canvas id='line_c'>
-      </canvas>
-  </div>
-  <div class="word_w_area" style="height: 400px; width: 450px;">
-    <img src="/static/image/wordcloud_cellphone.png" style="width:400px; height:450px;" alt="wc_img">
+  <div class="word_w_area col-sm-4 float-left" >
     <p>워드 클라우드</p>
+    <img src="/static/image/computer_wc.png" style="width:500px; height:500px;" alt="wc_img">
 
   </div>
 </div>

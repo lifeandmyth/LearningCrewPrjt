@@ -25,34 +25,28 @@ from collections import OrderedDict
 # Create your views here.
 # knowark's addition
 
-
-
-class SignUp(generic.CreateView):
-    form_class = CustomUserCreationForm
-    success_url = reverse_lazy('/')
-    template_name = 'sign.html'
-
-def post_view(request):
-    # 20230626 bar-chart
-    keywords = TotalTKeyrank.objects.values('keywords')
-    # print(type(keywords))
-    # print(posts)
-    w_list = []
-    for keyword in keywords:
-        w = keyword.get('keywords')
-        w_list.append(w)
-    # print(w_list)
-    cnts = TotalTKeyrank.objects.values('cnt')
-    # print(cnts)
-    c_list = []
-    for cnt in cnts:
-        c = cnt.get('cnt')
-        c_list.append(c)
-    # print(c_list)
-    w_c_list = []
-    for pair in zip(w_list, c_list):
-        # print(pair)
-        w_c_list.append(pair)
+# 20230626 main앱으로 옮김
+def main (request) :
+    # # 20230626 bar-chart
+    # keywords = TotalTKeyrank.objects.values('keywords')
+    # # print(type(keywords))
+    # # print(posts)
+    # w_list = []
+    # for keyword in keywords:
+    #     w = keyword.get('keywords')
+    #     w_list.append(w)
+    # # print(w_list)
+    # cnts = TotalTKeyrank.objects.values('cnt')
+    # # print(cnts)
+    # c_list = []
+    # for cnt in cnts:
+    #     c = cnt.get('cnt')
+    #     c_list.append(c)
+    # # print(c_list)
+    # w_c_list = []
+    # for pair in zip(w_list, c_list):
+    #     # print(pair)
+    #     w_c_list.append(pair)
     # posts = pd.DataFrame(w_c_list, columns=['words, cnt'])
     # print(w_c_list)
 
@@ -135,10 +129,11 @@ def post_view(request):
     # 날짜 정순이 되게끔 뒤집기
     total_key_list = total_key_list[::-1]
 
+
     # total_key_list
     # 년별로 집계하기
-    # print(total_key_list) 
-    cloud_key_list = [] 
+    print(total_key_list) 
+    word_list = [] 
     month_list = []
     cnt_list = []
     for tk in total_key_list:
@@ -146,21 +141,34 @@ def post_view(request):
             print(tk[0])
             print(tk[1])
             print(tk[2])
-            cloud_key_list.append(tk)
             month_list.append(tk[0])
+            word_list.append(tk[1])
             cnt_list.append(tk[2])
         else:
             pass
-    print(cloud_key_list)
 
-    context = {"w_c_list":w_c_list, 
-            "w_list":w_list, 
-            "c_list":c_list,
-            "total_key_list":cloud_key_list,
+    # 상위 순위 5개만
+    word_list = word_list[:5]
+    print(word_list)
+    # print(cloud_key_list)
+    # "w_c_list":w_c_list, 
+    #         "w_list":w_list, 
+    #         "c_list":c_list, 
+    context = {
             "month_list":month_list,
+            "key_list":word_list,
             "cnt_list":cnt_list
             }
-    return render(request, '../main.html', context)
+    return render(request, 'main.html', context)
+# close
+
+
+class SignUp(generic.CreateView):
+    form_class = CustomUserCreationForm
+    success_url = reverse_lazy('/')
+    template_name = 'sign.html'
+
+
 
 
 # class KeywordSearch() :
