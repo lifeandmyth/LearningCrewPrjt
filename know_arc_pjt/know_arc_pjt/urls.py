@@ -42,3 +42,7 @@ urlpatterns = [
     path('index/', include('keyword_chart.urls')),
 
 ]
+
+# 20230626 김경민 wc image추가를 위해
+# urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+# close

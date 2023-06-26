@@ -46,9 +46,74 @@
     <div class="part boardPart position-relative" id="page2">
         <div class="position-absolute top-50 start-50 translate-middle boardBox">
 
+        {% include 'charts.html' %}
+
         </div>
     </div>
 </div>
-    
+
+<!-- 20230626 김경민 script:chart.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+
+<script>
+ 
+  const data = {
+      // label: "키워드들",
+      labels: [{% for w in w_list%} ' {{w}}', {% endfor %}],
+      datasets: [{
+        label: '1년간 키워드 등장 빈도수',
+        backgroundColor: 'rgba(103,59,167,0.1)',
+        hoverBackgroundColor: 'rgba(103,59,167,0.5)',
+        borderColor: 'rgba(103,59,167,1)',
+        borderWidth: 1,
+        data: [{%for c in c_list%} '{{ c }}', {% endfor %}],
+      }]
+  };
+  const data2 = {
+      // label: "키워드들",
+      labels: [{% for m in month_list %} '{{m}}', {% endfor %}],
+      datasets: [{
+        label: '1년간 "클라우드" 등장 빈도수',
+        backgroundColor: 'rgba(103,59,167,0.1)',
+        hoverBackgroundColor: 'rgba(103,59,167,0.5)',
+        borderColor: 'rgba(103,59,167,1)',
+        borderWidth: 1,
+        data: [{%for cl in cnt_list %} '{{ cl }}', {% endfor %}],
+      }]
+  };
+  // config
+  const config = {
+    type: 'bar',
+    data,
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  };
+  
+  const chart = new Chart(document.getElementById('bar_c'), config
+  );
+  
+  // line chart 
+
+  const config2 = {
+      type: 'line',
+      data: data2,
+      options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  }
+  
+  const chart2 = new Chart(document.getElementById('line_c'), config2);
+
+</script>
+<!-- 20230626 김경민 close -->
 
 {% endblock %}

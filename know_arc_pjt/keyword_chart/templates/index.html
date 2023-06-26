@@ -10,26 +10,53 @@
   </html>
 <table class="table-contents" style="padding:10px">
   <tr>
-    <th>news_site</th>
-    <th>site_code</th>
+    <th>words</th>
+    <th>cnt</th>
+    <!-- <th>news_date</th>
+    <th>keywords</th> -->
   </tr>
-  {% for post in posts %}
+  {% for w_c in w_c_list %}
   <tr>
-    <td>{{post.news_site}}</td>
-    <td>{{post.site_code}}</td>
+    <td>{{w_c.0}}</td>
+    <td>{{w_c.1}}</td>
+    <!-- <td>{{post.news_date|date:'Y-m-d H:i'}}</td> -->
+    <!-- <td>{{post.total_keywords}}</td> -->
+    <!-- <td>{{post.news_date|date:'Y-m-d H:i'}}</td> -->
+    <!-- <td>{{post.total_keywords}}</td> -->
+  </tr>
+  {%endfor%}
+</table class="table-contents" style="padding:10px">
+  <tr>
+    <th>words</th>
+    <th>cnt</th>
+    <!-- <th>news_date</th>
+    <th>keywords</th> -->
+  </tr>
+  {% for t_l in total_key_list %}
+  <tr>
+    <td>{{t_l.0}}</td>
+    <td>{{t_l.1}}</td>
+    <td>{{t_l.2}}</td>
+    <!-- <td>{{post.news_date|date:'Y-m-d H:i'}}</td> -->
+    <!-- <td>{{post.total_keywords}}</td> -->
+    <!-- <td>{{post.news_date|date:'Y-m-d H:i'}}</td> -->
+    <!-- <td>{{post.total_keywords}}</td> -->
   </tr>
   {%endfor%}
 </table>
 <div class="chart-wrapper">
-  <div class="bar_c_area" style="height: 300px; width: 400px;">
+  <div class="bar_c_area" style="height: 400px; width: 450px;">
       <canvas id='bar_c'>
-
       </canvas>
   </div>
-  <div class="line_c_area" style="height: 300px; width: 400px;">
+  <div class="line_c_area" style="height: 400px; width: 450px;">
       <canvas id='line_c'>
-
       </canvas>
+  </div>
+  <div class="word_w_area" style="height: 400px; width: 450px;">
+    <img src="/static/image/wordcloud_cellphone.png" style="width:400px; height:450px;" alt="wc_img">
+    <p>워드 클라우드</p>
+
   </div>
 </div>
 </body>
@@ -38,22 +65,35 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
 
 <script>
-  const ctx = document.getElementById('bar_c');
-
-  new Chart(ctx, {
-    type: 'bar',
-    data: {
-      label: "키워드들",
-      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+ 
+  const data = {
+      // label: "키워드들",
+      labels: [{% for w in w_list%} ' {{w}}', {% endfor %}],
       datasets: [{
         label: '1년간 키워드 등장 빈도수',
         backgroundColor: 'rgba(103,59,167,0.1)',
         hoverBackgroundColor: 'rgba(103,59,167,0.5)',
         borderColor: 'rgba(103,59,167,1)',
         borderWidth: 1,
-        data: [12, 19, 3, 5, 2, 3],
+        data: [{%for c in c_list%} '{{ c }}', {% endfor %}],
       }]
-    },
+  };
+  const data2 = {
+      // label: "키워드들",
+      labels: [{% for m in month_list %} '{{m}}', {% endfor %}],
+      datasets: [{
+        label: '1년간 "클라우드" 등장 빈도수',
+        backgroundColor: 'rgba(103,59,167,0.1)',
+        hoverBackgroundColor: 'rgba(103,59,167,0.5)',
+        borderColor: 'rgba(103,59,167,1)',
+        borderWidth: 1,
+        data: [{%for cl in cnt_list %} '{{ cl }}', {% endfor %}],
+      }]
+  };
+  // config
+  const config = {
+    type: 'bar',
+    data,
     options: {
       scales: {
         y: {
@@ -61,5 +101,26 @@
         }
       }
     }
-  });
+  };
+  
+  const chart = new Chart(document.getElementById('bar_c'), config
+  );
+  
+  // line chart 
+
+  const config2 = {
+      type: 'line',
+      data: data2,
+      options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  }
+  
+  const chart2 = new Chart(document.getElementById('line_c'), config2);
+
+
 </script>

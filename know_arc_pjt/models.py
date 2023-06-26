@@ -126,8 +126,9 @@ class MainCustomuser(models.Model):
     is_staff = models.IntegerField()
     is_active = models.IntegerField()
     date_joined = models.DateTimeField()
-    career = models.CharField(unique=True, max_length=3, blank=True, null=True)
+    career = models.CharField(max_length=3, blank=True, null=True)
     affiliation = models.CharField(max_length=256)
+    career_keyword = models.CharField(max_length=100, blank=True, null=True)
 
     class Meta:
         managed = False
@@ -156,20 +157,14 @@ class MainCustomuserUserPermissions(models.Model):
         unique_together = (('customuser', 'permission'),)
 
 
-class MainTechworld(models.Model):
+class MainDb(models.Model):
     id = models.BigAutoField(primary_key=True)
-    news_date = models.CharField(max_length=20)
-    news_title = models.CharField(max_length=80)
-    news_text_sm = models.TextField()
-    url_in = models.CharField(max_length=100)
-    news_writer = models.CharField(max_length=20)
-    tags_string = models.CharField(max_length=150)
-    thumb_addr = models.CharField(max_length=100)
-    news_site = models.CharField(max_length=20)
+    field1 = models.CharField(max_length=100)
+    field2 = models.IntegerField()
 
     class Meta:
         managed = False
-        db_table = 'main_techworld'
+        db_table = 'main_db'
 
 
 class NewsSites(models.Model):
@@ -181,20 +176,21 @@ class NewsSites(models.Model):
         db_table = 'news_sites'
 
 
-class NewsTechworldT(models.Model):
-    idx = models.AutoField(primary_key=True)
-    news_date = models.CharField(max_length=20)
-    news_title = models.CharField(max_length=80)
+class NewsTechworldKT(models.Model):
+    idx = models.IntegerField(primary_key=True)
+    news_date = models.CharField(max_length=50)
+    news_title = models.CharField(max_length=150)
     news_text_sm = models.TextField()
-    url_in = models.CharField(max_length=100)
-    news_writer = models.CharField(max_length=20)
+    url_in = models.CharField(max_length=124)
+    news_writer = models.CharField(max_length=50)
     tags_string = models.CharField(max_length=150, blank=True, null=True)
-    thumb_addr = models.CharField(max_length=100, blank=True, null=True)
+    thumb_addr = models.CharField(max_length=228, blank=True, null=True)
     news_site = models.ForeignKey(NewsSites, models.DO_NOTHING, db_column='news_site')
+    total_keywords = models.CharField(max_length=158)
 
     class Meta:
         managed = False
-        db_table = 'news_techworld_t'
+        db_table = 'news_techworld_k_t'
 
 
 class SocialaccountSocialaccount(models.Model):
@@ -245,3 +241,39 @@ class SocialaccountSocialtoken(models.Model):
         managed = False
         db_table = 'socialaccount_socialtoken'
         unique_together = (('app', 'account'),)
+
+
+class TotalKeyRelated(models.Model):
+    key = models.CharField(max_length=50)
+    related = models.CharField(max_length=158)
+
+    class Meta:
+        managed = False
+        db_table = 'total_key_related'
+
+
+class TotalTKeyrank(models.Model):
+    idx = models.AutoField(primary_key=True)
+    keywords = models.CharField(max_length=100)
+    cnt = models.IntegerField()
+
+    class Meta:
+        managed = False
+        db_table = 'total_t_keyrank'
+
+
+class TotalnewsKT(models.Model):
+    idx = models.IntegerField(primary_key=True)
+    news_date = models.DateTimeField()
+    news_title = models.CharField(max_length=124)
+    news_text_sm = models.TextField()
+    url_in = models.CharField(max_length=128)
+    news_writer = models.CharField(max_length=50)
+    tags_string = models.CharField(max_length=188, blank=True, null=True)
+    thumb_addr = models.CharField(max_length=228, blank=True, null=True)
+    news_site = models.ForeignKey(NewsSites, models.DO_NOTHING, db_column='news_site')
+    total_keywords = models.CharField(max_length=188)
+
+    class Meta:
+        managed = False
+        db_table = 'totalnews_k_t'
