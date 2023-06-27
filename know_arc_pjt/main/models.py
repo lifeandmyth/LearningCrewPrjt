@@ -10,17 +10,45 @@ from django.contrib.auth.models import AbstractUser
  
 
 # Create your models here.
- 
+  # user models.py # user models.py
 class CustomUser(AbstractUser):
+    # password = models.CharField(max_length=128)
+    password = models.CharField(max_length=128, unique=False)
+    username = models.CharField(unique=True, max_length=150)
+    # email = models.CharField(max_length=254)
+    email = models.CharField(max_length=254, unique=False, blank=True, null=True)
 
-    # 추가 필드 (career, affiliation)
-     
     CAREER = (
         ('주니어', '신입 ~ 5년차'),
         ('시니어', '5년차 이상')
     )
-    career = models.CharField(verbose_name='경력', max_length=3, choices=CAREER, unique=True, null=True)
+    KEYWORDS = (
+        ('AI', 'AI'),
+        ('출시', '출시'),
+        ('개발', '개발'),
+        ('코딩', '코딩'),
+        ('클라우드', '클라우드'),
+        ('공개', '공개'),
+        ('서비스' ,'서비스'),
+        ('언어', '언어'),
+        ('프로그래밍', '프로그래밍'),
+        ('기반', '기반')
+    )
+    career = models.CharField(verbose_name='경력', max_length=3, choices=CAREER, null=True)
+    career_keyword = models.CharField(verbose_name='관심 키워드', choices=KEYWORDS, help_text = '올해의 IT키워드 10개입니다! 가장 관심 있는 항목에 체크해주세요!', max_length=100, default= None, null=True)
     affiliation = models.CharField(verbose_name='소속', max_length=256, blank=True)
+
+    class Meta:
+        managed = False
+        db_table = 'main_customuser'
+
+
+
+
+
+####### 이 아래는 DB 테이블 #######
+
+
 
 class AccountEmailaddress(models.Model):
     email = models.CharField(unique=True, max_length=254)
@@ -43,14 +71,11 @@ class AccountEmailconfirmation(models.Model):
         managed = False
         db_table = 'account_emailconfirmation'
 
-
 class AuthGroup(models.Model):
     name = models.CharField(unique=True, max_length=150)
-
     class Meta:
         managed = False
         db_table = 'auth_group'
-
 
 class AuthGroupPermissions(models.Model):
     id = models.BigAutoField(primary_key=True)
@@ -128,21 +153,95 @@ class DjangoSite(models.Model):
         db_table = 'django_site'
 
 
+class KeywordsBloter(models.Model):
+    idx = models.IntegerField(primary_key=True)
+    words = models.CharField(max_length=50)
+    ranks = models.FloatField()
+
+    class Meta:
+        managed = False
+        db_table = 'keywords_bloter'
+
+
+class KeywordsCwn(models.Model):
+    idx = models.IntegerField(primary_key=True)
+    words = models.CharField(max_length=50)
+    ranks = models.FloatField()
+
+    class Meta:
+        managed = False
+        db_table = 'keywords_cwn'
+
+
+class KeywordsItbiz(models.Model):
+    idx = models.IntegerField(primary_key=True)
+    words = models.CharField(max_length=50)
+    ranks = models.FloatField()
+
+    class Meta:
+        managed = False
+        db_table = 'keywords_itbiz'
+
+
+class KeywordsItworld(models.Model):
+    idx = models.IntegerField(primary_key=True)
+    words = models.CharField(max_length=50)
+    ranks = models.FloatField()
+
+    class Meta:
+        managed = False
+        db_table = 'keywords_itworld'
+
+
+class KeywordsRecentit(models.Model):
+    idx = models.IntegerField(primary_key=True)
+    words = models.CharField(max_length=50)
+    ranks = models.FloatField()
+
+    class Meta:
+        managed = False
+        db_table = 'keywords_recentit'
+
+
+class KeywordsTechworld(models.Model):
+    idx = models.IntegerField(primary_key=True)
+    words = models.CharField(max_length=50)
+    ranks = models.FloatField()
+
+    class Meta:
+        managed = False
+        db_table = 'keywords_techworld'
+
+
 class MainCustomuser(models.Model):
     id = models.BigAutoField(primary_key=True)
-    password = models.CharField(max_length=128)
+    # password = models.CharField(max_length=128)
+    password = models.CharField(max_length=128, unique=False)
     last_login = models.DateTimeField(blank=True, null=True)
-    is_superuser = models.IntegerField()
     username = models.CharField(unique=True, max_length=150)
-    first_name = models.CharField(max_length=150)
-    last_name = models.CharField(max_length=150)
-    email = models.CharField(max_length=254)
-    is_staff = models.IntegerField()
-    is_active = models.IntegerField()
-    date_joined = models.DateTimeField()
-    career = models.CharField(max_length=3, blank=True, null=True)
-    affiliation = models.CharField(max_length=256)
-    career_keyword = models.CharField(max_length=100, blank=True, null=True)
+    # email = models.CharField(max_length=254)
+    email = models.CharField(max_length=254, unique=False, blank=True, null=True)
+    date_joined = models.DateTimeField(null=True)
+
+    CAREER = (
+        ('주니어', '신입 ~ 5년차'),
+        ('시니어', '5년차 이상')
+    )
+    KEYWORDS = (
+        ('AI', 'AI'),
+        ('출시', '출시'),
+        ('개발', '개발'),
+        ('코딩', '코딩'),
+        ('클라우드', '클라우드'),
+        ('공개', '공개'),
+        ('서비스' ,'서비스'),
+        ('언어', '언어'),
+        ('프로그래밍', '프로그래밍'),
+        ('기반', '기반')
+    )
+    career = models.CharField(verbose_name='경력', max_length=3, choices=CAREER, null=True)
+    career_keyword = models.CharField(verbose_name='관심 키워드', choices=KEYWORDS, help_text = '올해의 IT키워드 10개입니다! 가장 관심 있는 항목에 체크해주세요!', max_length=100, default= None, null=True)
+    affiliation = models.CharField(verbose_name='소속', max_length=256, blank=True)
 
     class Meta:
         managed = False
@@ -207,6 +306,15 @@ class NewsTechworldKT(models.Model):
         db_table = 'news_techworld_k_t'
 
 
+class RelatedKeywords(models.Model):
+    words = models.CharField(max_length=50)
+    related = models.CharField(max_length=158)
+
+    class Meta:
+        managed = False
+        db_table = 'related_keywords'
+
+
 class SocialaccountSocialaccount(models.Model):
     provider = models.CharField(max_length=30)
     uid = models.CharField(max_length=191)
@@ -257,15 +365,6 @@ class SocialaccountSocialtoken(models.Model):
         unique_together = (('app', 'account'),)
 
 
-class TotalKeyRelated(models.Model):
-    key = models.CharField(max_length=50)
-    related = models.CharField(max_length=158)
-
-    class Meta:
-        managed = False
-        db_table = 'total_key_related'
-
-
 class TotalTKeyrank(models.Model):
     idx = models.AutoField(primary_key=True)
     keywords = models.CharField(max_length=100)
@@ -274,6 +373,16 @@ class TotalTKeyrank(models.Model):
     class Meta:
         managed = False
         db_table = 'total_t_keyrank'
+
+
+class TotalTKeywordsRemake(models.Model):
+    idx = models.IntegerField(primary_key=True)
+    words = models.CharField(max_length=50)
+    ranks = models.FloatField()
+
+    class Meta:
+        managed = False
+        db_table = 'total_t_keywords_remake'
 
 
 class TotalnewsKT(models.Model):

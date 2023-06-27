@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+ % extends 'base.html' %}
 
 {% load static %}
 
@@ -33,126 +33,145 @@
                     <span>노아</span>
             </a>
             <input type="search" id="search-input">
-            <a type="submit" href="#" class="sch_go" onclick="return searchKeyword();">
+            <a type="submit" href="#page2" class="sch_go" onclick="return searchKeyword();">
                 <span>ㅏ크</span>
             </a>
         </div>
         <div class="textBox">
-            <span class="textL">주니어도 그들의 대화에 끼고 싶다!</span>
+            <span class="textL">신입도 그들의 대화에 끼고 싶다!</span>
             <!-- <span class="textR">궁금한 키워드를 노아크에서 한눈에 확인하세요!</span> -->
-            <span class="textR">궁금한 키워드를 위의 푸른 검색창에 입력하세요!</span>
+            <span class="textR">궁금한 키워드를 중앙의 푸른 검색창에 입력하세요!</span>
         </div>
     </div>
     <div class="part boardPart position-relative" id="page2">
         <div class="position-absolute top-50 start-50 translate-middle boardBox">
 
-        {% include 'charts.html' %}
-        
-        {% comment %} {{ key_list.0 }} {% endcomment %}
-        {% comment %} {% for w in key_list%} '{{w}}', {% endfor %} {% endcomment %}
+
+            <!-- 0627 경민 chart -->
+            <div>
+                {% include 'chart.html' %}
+            </div>
+
+
+            <!-- 0626 동석 search -->
+            
+            <div class="search_results_wrapper p-2" style="background-color: #FFFAFA; border-radius: 30% 30% 44% 40% / 35% 40% 60% 60%; margin: 18% 30% 0 6%; width: 43%; height: 350px;">
+                <p style="margin-left: 40%; font-size: 25px; font-weight: 700; margin-top: -25px;">이달의 뉴스</p>
+                {% block content %}
+                {% endblock %}
+            </div>
+            
+
+            <!-- 230623 예슬 start -->
+
+            <!-- <div class="lanking">
+                <p class="lank_title" style="font-size: 25px; font-weight: 700; margin-top: 5%; text-align: center;">HOT TOPIC</p>
+                <ul class="lank_cont" style="list-style:none; padding: 0; font-size: 18px; margin: 5px;">
+                    {% for lanking in lankings %}
+                    <li style="margin-left: 30%;">{{ lanking.idx }}. &nbsp;&nbsp;&nbsp; {{ lanking.keywords }}</li>
+                    {% endfor %}
+                </ul>
+            </div> -->
+
+            <div id="carouselExampleDark" class="carousel carousel-dark slide lanking">
+            <!-- <div id="carouselExampleDark" class="carousel carousel-dark slide lanking" data-bs-ride="carousel"> -->
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                    <p class="lank_title" style="font-size: 25px; font-weight: 700; margin-top: 5%; text-align: center;">통합 랭킹</p>
+                    <ul class="lank_cont" style="list-style:none; padding: 0; font-size: 18px; margin: 5px;">
+                        {% for total_ranking in total_rankings %}
+                        <li style="margin-left: 30%;">{{ total_ranking.idx }}. &nbsp;&nbsp;&nbsp; {{ total_ranking.keywords }}</li>
+                        {% endfor %}
+                    </ul>
+                    </div>
+                    <div class="carousel-item">
+                    <p class="lank_title" style="font-size: 25px; font-weight: 700; margin-top: 5%; text-align: center;">CWN</p>
+                    <ul class="lank_cont" style="list-style:none; padding: 0; font-size: 18px; margin: 5px;">
+                        {% for cwn_ranking in cwn_rankings %}
+                        <li style="margin-left: 30%;">{{ cwn_ranking.idx }}. &nbsp;&nbsp;&nbsp; {{ cwn_ranking.words }}</li>
+                        {% endfor %}
+                    </ul>
+                    </div>
+                    <div class="carousel-item">
+                    <p class="lank_title" style="font-size: 25px; font-weight: 700; margin-top: 5%; text-align: center;">TECH WORLD</p>
+                    <ul class="lank_cont" style="list-style:none; padding: 0; font-size: 18px; margin: 5px;">
+                        {% for techworld_ranking in techworld_rankings %}
+                        <li style="margin-left: 30%;">{{ techworld_ranking.idx }}. &nbsp;&nbsp;&nbsp; {{ techworld_ranking.words }}</li>
+                        {% endfor %}
+                    </ul>
+                    </div>
+                    <div class="carousel-item">
+                    <p class="lank_title" style="font-size: 25px; font-weight: 700; margin-top: 5%; text-align: center;">요즘IT</p>
+                    <ul class="lank_cont" style="list-style:none; padding: 0; font-size: 18px; margin: 5px;">
+                        {% for yozmit_ranking in yozmit_rankings %}
+                        <li style="margin-left: 30%;">{{ yozmit_ranking.idx }}. &nbsp;&nbsp;&nbsp; {{ yozmit_ranking.words }}</li>
+                        {% endfor %}
+                    </ul>
+                    </div>
+                    <div class="carousel-item">
+                    <p class="lank_title" style="font-size: 25px; font-weight: 700; margin-top: 5%; text-align: center;">BLOTER</p>
+                    <ul class="lank_cont" style="list-style:none; padding: 0; font-size: 18px; margin: 5px;">
+                        {% for bloter_ranking in bloter_rankings %}
+                        <li style="margin-left: 30%;">{{ bloter_ranking.idx }}. &nbsp;&nbsp;&nbsp; {{ bloter_ranking.words }}</li>
+                        {% endfor %}
+                    </ul>
+                    </div>
+                    <div class="carousel-item">
+                    <p class="lank_title" style="font-size: 25px; font-weight: 700; margin-top: 5%; text-align: center;">IT WORLD</p>
+                    <ul class="lank_cont" style="list-style:none; padding: 0; font-size: 18px; margin: 5px;">
+                        {% for itworld_ranking in itworld_rankings %}
+                        <li style="margin-left: 30%;">{{ itworld_ranking.idx }}. &nbsp;&nbsp;&nbsp; {{ itworld_ranking.words }}</li>
+                        {% endfor %}
+                    </ul>
+                    </div>
+                    <div class="carousel-item">
+                    <p class="lank_title" style="font-size: 25px; font-weight: 700; margin-top: 5%; text-align: center;">IT비즈뉴스</p>
+                    <ul class="lank_cont" style="list-style:none; padding: 0; font-size: 18px; margin: 5px;">
+                        {% for itbiz_ranking in itbiz_rankings %}
+                        <li style="margin-left: 30%;">{{ itbiz_ranking.idx }}. &nbsp;&nbsp;&nbsp; {{ itbiz_ranking.words }}</li>
+                        {% endfor %}
+                    </ul>
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+
+
+            <div class="versus">
+                <div class="junior position-relative">
+                    <p style="font-family: 'Black Han Sans', sans-serif; font-size: 37px; padding-left: 30px; color: #88b4b1; line-height: 45px;">주니어</p>
+                    <div class="jr_words position-absolute top-50 start-50 translate-middle">
+                        {% for jr_keyword in jr_keywords %}
+                        <!-- <a href="https://www.google.co.kr/search?q={{jr_keyword.career_keyword}}" target="_blank" style="font-size: 30px; font-weight: 700; color: #333; line-height: 25px;" class="d-flex justify-content-center">{{ jr_keyword.career_keyword }}</a><br> -->
+                        <a href="https://www.google.co.kr/search?q={{jr_keyword.career_keyword}}" target="_blank" style="font-size: 20px; font-weight: 700; color: #333; line-height: 25px;" class="d-flex justify-content-center">{{ jr_keyword.career_keyword }}</a><br>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="senior position-relative">
+                    <p style="font-family: 'Black Han Sans', sans-serif; font-size: 37px; padding-right: 30px; color: #a79980; line-height: 37px;">시니어</p>
+                    <div class="sr_words position-absolute top-50 start-50 translate-middle" style="text-align: center;">
+                        {% for sr_keyword in sr_keywords %}
+                        <!-- <a href="https://www.google.co.kr/search?q={{sr_keyword.career_keyword}}" target="_blank" style="font-size: 40px; font-weight: 700; color: #333;">{{ sr_keyword.career_keyword }} </a> -->
+                        <a href="https://www.google.co.kr/search?q={{sr_keyword.career_keyword}}" target="_blank" style="font-size: 20px; font-weight: 700; color: #333;">{{ sr_keyword.career_keyword }} </a>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <!-- 230624 예슬 end -->
         </div>
     </div>
 </div>
 
 
-<!-- 20230626 김경민 script:chart.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
-
-<script>
- 
-    const data = {
-      label: "2023년 5월 키워드",
-        labels: [{% for k in key_list%} ' {{k}}', {% endfor %}],
-        datasets: [{
-            label: '{{ key_list }}',
-            backgroundColor: 'rgb(194, 222, 220,0.2)',
-            hoverBackgroundColor: 'rgb(236, 229, 199,0.5)',
-            borderColor: 'rgb(17, 106, 123,1)',
-            borderWidth: 1,
-            data: [{%for c in cnt_list_0%} '{{ c }}', {% endfor %}],
-        }]
-    };
-    const data2 = {
-        label: "1년 키워드 추이",
-        labels: [{% for m in month_list_0 %} '{{m}}', {% endfor %}],
-        datasets: [{
-            label: '{{ key_list.0 }}',
-            backgroundColor: 'rgb(194, 222, 220,0.2)',
-            hoverBackgroundColor: 'rgb(236, 229, 199,0.5)',
-            borderColor: 'rgb(17, 106, 123,1)',
-            borderWidth: 1,
-            data: [{%for cl in cnt_list_0 %} '{{ cl }}', {% endfor %}],
-        },{
-            labels: [{% for m in month_list_1 %} '{{m}}', {% endfor %}],
-            label: '{{ key_list.1 }}',
-            backgroundColor: 'rgb(194, 222, 220,0.2)',
-            hoverBackgroundColor: 'rgb(236, 229, 199,0.5)',
-            borderColor: 'rgb(57, 106, 123,1)',
-            borderWidth: 1,
-            data: [{%for cl in cnt_list_1 %} '{{ cl }}', {% endfor %}],
-        },{
-            labels: [{% for m in month_list_2 %} '{{m}}', {% endfor %}],
-            label: '{{ key_list.2 }}',
-            backgroundColor: 'rgb(194, 222, 220,0.2)',
-            hoverBackgroundColor: 'rgb(236, 229, 199,0.5)',
-            borderColor: 'rgb(107, 106, 123,1)',
-            borderWidth: 1,
-            data: [{%for cl in cnt_list_2 %} '{{ cl }}', {% endfor %}],
-        },{
-            labels: [{% for m in month_list_3 %} '{{m}}', {% endfor %}],
-            label: '{{ key_list.3 }}',
-            backgroundColor: 'rgb(194, 222, 220,0.2)',
-            hoverBackgroundColor: 'rgb(236, 229, 199,0.5)',
-            borderColor: 'rgb(157, 106, 123,1)',
-            borderWidth: 1,
-            data: [{%for cl in cnt_list_3 %} '{{ cl }}', {% endfor %}],
-        },{
-            labels: [{% for m in month_list_4 %} '{{m}}', {% endfor %}],
-            label: '{{ key_list.4 }}',
-            backgroundColor: 'rgb(194, 222, 220,0.2)',
-            hoverBackgroundColor: 'rgb(236, 229, 199,0.5)',
-            borderColor: 'rgb(207, 106, 123,1)',
-            borderWidth: 1,
-            data: [{%for cl in cnt_list_4 %} '{{ cl }}', {% endfor %}],
-        }
-        ]
-    };
-    // config
-    const config = {
-        type: 'bar',
-        data,
-        options: {
-        responsive: false,
-        scales: {
-            y: {
-            beginAtZero: true
-            }
-        }
-        }
-    };
-    
-    const chart = new Chart(document.getElementById('bar_c'), config
-    );
-    
-    // line chart 
-
-    const config2 = {
-        type: 'line',
-        data: data2,
-        options: {
-        responsive: false,
-        scales: {
-            y: {
-            beginAtZero: true
-            }
-        }
-        }
-    }
-    
-    const chart2 = new Chart(document.getElementById('line_c'), config2);
-
-</script>
-<!-- 20230626 김경민 close -->
-
-
 {% endblock %}
+
+
+
+

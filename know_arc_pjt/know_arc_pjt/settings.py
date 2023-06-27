@@ -50,9 +50,10 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',  #google sign
 
+    # 'widget_tweaks',
     'main',
     # 20230623 김경민 app 추가
-    'keyword_chart',
+    # 'keyword_chart',
 ]
 
 MIDDLEWARE = [

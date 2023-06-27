@@ -1,0 +1,154 @@
+{% extends 'main.html' %}
+
+{% block content %}
+    <!-- Display search results here -->
+    <div class="search_results" style="height: 250px;">
+        <ul class="news-item" style="list-style: none; margin-left: 10%; margin-top: 7%;">
+            {% for news in news_list %}
+            <li style="font-size: 16px; margin: 10px 0"><a href="#">{{ news.news_title }}</a></li>
+            {% empty %}
+        <!-- Add other news details here -->
+        </ul>
+        <p>다시 입력해 주세요.</p>
+    {% endfor %}
+    </div>
+    
+
+
+
+
+
+    <!-- 230623 예슬 start -->
+
+    <!-- <div class="lanking">
+        <p class="lank_title" style="font-size: 25px; font-weight: 700; margin-top: 5%; text-align: center;">HOT TOPIC</p>
+        <ul class="lank_cont" style="list-style:none; padding: 0; font-size: 18px; margin: 5px;">
+            {% for lanking in lankings %}
+            <li style="margin-left: 30%;">{{ lanking.idx }}. &nbsp;&nbsp;&nbsp; {{ lanking.keywords }}</li>
+            {% endfor %}
+        </ul>
+    </div> -->
+
+    <div id="carouselExampleDark" class="carousel carousel-dark slide lanking" style="z-index: 100;">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+            <p class="lank_title" style="font-size: 25px; font-weight: 700; margin-top: 5%; text-align: center;">통합 랭킹</p>
+            <ul class="lank_cont" style="list-style:none; padding: 0; font-size: 18px; margin: 5px;">
+                {% for total_ranking in total_rankings %}
+                <li style="margin-left: 30%;">{{ total_ranking.idx }}. &nbsp;&nbsp;&nbsp; {{ total_ranking.keywords }}</li>
+                {% endfor %}
+            </ul>
+            </div>
+            <div class="carousel-item">
+            <p class="lank_title" style="font-size: 25px; font-weight: 700; margin-top: 5%; text-align: center;">CWN</p>
+            <ul class="lank_cont" style="list-style:none; padding: 0; font-size: 18px; margin: 5px;">
+                {% for cwn_ranking in cwn_rankings %}
+                <li style="margin-left: 30%;">{{ cwn_ranking.idx }}. &nbsp;&nbsp;&nbsp; {{ cwn_ranking.words }}</li>
+                {% endfor %}
+            </ul>
+            </div>
+            <div class="carousel-item">
+            <p class="lank_title" style="font-size: 25px; font-weight: 700; margin-top: 5%; text-align: center;">TECH WORLD</p>
+            <ul class="lank_cont" style="list-style:none; padding: 0; font-size: 18px; margin: 5px;">
+                {% for techworld_ranking in techworld_rankings %}
+                <li style="margin-left: 30%;">{{ techworld_ranking.idx }}. &nbsp;&nbsp;&nbsp; {{ techworld_ranking.words }}</li>
+                {% endfor %}
+            </ul>
+            </div>
+            <div class="carousel-item">
+            <p class="lank_title" style="font-size: 25px; font-weight: 700; margin-top: 5%; text-align: center;">요즘IT</p>
+            <ul class="lank_cont" style="list-style:none; padding: 0; font-size: 18px; margin: 5px;">
+                {% for yozmit_ranking in yozmit_rankings %}
+                <li style="margin-left: 30%;">{{ yozmit_ranking.idx }}. &nbsp;&nbsp;&nbsp; {{ yozmit_ranking.words }}</li>
+                {% endfor %}
+            </ul>
+            </div>
+            <div class="carousel-item">
+            <p class="lank_title" style="font-size: 25px; font-weight: 700; margin-top: 5%; text-align: center;">BLOTER</p>
+            <ul class="lank_cont" style="list-style:none; padding: 0; font-size: 18px; margin: 5px;">
+                {% for bloter_ranking in bloter_rankings %}
+                <li style="margin-left: 30%;">{{ bloter_ranking.idx }}. &nbsp;&nbsp;&nbsp; {{ bloter_ranking.words }}</li>
+                {% endfor %}
+            </ul>
+            </div>
+            <div class="carousel-item">
+            <p class="lank_title" style="font-size: 25px; font-weight: 700; margin-top: 5%; text-align: center;">IT WORLD</p>
+            <ul class="lank_cont" style="list-style:none; padding: 0; font-size: 18px; margin: 5px;">
+                {% for itworld_ranking in itworld_rankings %}
+                <li style="margin-left: 30%;">{{ itworld_ranking.idx }}. &nbsp;&nbsp;&nbsp; {{ itworld_ranking.words }}</li>
+                {% endfor %}
+            </ul>
+            </div>
+            <div class="carousel-item">
+            <p class="lank_title" style="font-size: 25px; font-weight: 700; margin-top: 5%; text-align: center;">IT비즈뉴스</p>
+            <ul class="lank_cont" style="list-style:none; padding: 0; font-size: 18px; margin: 5px;">
+                {% for itbiz_ranking in itbiz_rankings %}
+                <li style="margin-left: 30%;">{{ itbiz_ranking.idx }}. &nbsp;&nbsp;&nbsp; {{ itbiz_ranking.words }}</li>
+                {% endfor %}
+            </ul>
+            </div>
+        </div>
+        <button class="carousel-control-prev" style="z-index: 100;" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" style="z-index: 100;" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+
+
+    <div class="versus">
+        <div class="junior position-relative">
+            <p style="font-family: 'Black Han Sans', sans-serif; font-size: 37px; padding-left: 30px; color: #88b4b1; line-height: 45px;">주니어</p>
+            <div class="jr_words position-absolute top-50 start-50 translate-middle">
+                {% for jr_keyword in jr_keywords %}
+                <a href="https://www.google.co.kr/search?q={{jr_keyword.career_keyword}}" target="_blank" style="font-size: 30px; font-weight: 700; color: #444; line-height: 25px;" class="d-flex justify-content-center">{{ jr_keyword.career_keyword }}</a><br>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="senior position-relative">
+            <p style="font-family: 'Black Han Sans', sans-serif; font-size: 37px; padding-right: 30px; color: #a79980; line-height: 37px;">시니어</p>
+            <div class="sr_words position-absolute top-50 start-50 translate-middle" style="text-align: center;">
+                {% for sr_keyword in sr_keywords %}
+                <a href="https://www.google.co.kr/search?q={{sr_keyword.career_keyword}}" target="_blank" style="font-size: 40px; font-weight: 700; color: #444;">{{ sr_keyword.career_keyword }} </a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <!-- 230624 예슬 end -->
+{% endblock %}
+
+{% block script %}
+<script>
+    // JavaScript code to update the search results div
+    const keyword = '{{ keyword }}';
+    const searchResultsDiv = document.querySelector('.search-results');
+
+    // Make an AJAX request to fetch the search results
+    fetch(`/api/search-results/${keyword}`)
+        .then(response => response.json())
+        .then(data => {
+            // Clear the search results div
+            searchResultsDiv.innerHTML = '';
+
+            // Display the search results
+            if (data.length > 0) {
+                data.forEach(result => {
+                    const newsItem = document.createElement('div');
+                    newsItem.classList.add('news-item');
+                    newsItem.innerHTML = `<h3>${result.news_title}</h3>`;
+                    // Add other news details here
+                    searchResultsDiv.appendChild(newsItem);
+                });
+            } else {
+                searchResultsDiv.innerHTML = '<p>No results found.</p>';
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching search results:', error);
+        });
+</script>
+
+{% endblock %}

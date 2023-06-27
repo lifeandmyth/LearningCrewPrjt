@@ -114,6 +114,66 @@ class DjangoSite(models.Model):
         db_table = 'django_site'
 
 
+class KeywordsBloter(models.Model):
+    idx = models.IntegerField(primary_key=True)
+    words = models.CharField(max_length=50)
+    ranks = models.FloatField()
+
+    class Meta:
+        managed = False
+        db_table = 'keywords_bloter'
+
+
+class KeywordsCwn(models.Model):
+    idx = models.IntegerField(primary_key=True)
+    words = models.CharField(max_length=50)
+    ranks = models.FloatField()
+
+    class Meta:
+        managed = False
+        db_table = 'keywords_cwn'
+
+
+class KeywordsItbiz(models.Model):
+    idx = models.IntegerField(primary_key=True)
+    words = models.CharField(max_length=50)
+    ranks = models.FloatField()
+
+    class Meta:
+        managed = False
+        db_table = 'keywords_itbiz'
+
+
+class KeywordsItworld(models.Model):
+    idx = models.IntegerField(primary_key=True)
+    words = models.CharField(max_length=50)
+    ranks = models.FloatField()
+
+    class Meta:
+        managed = False
+        db_table = 'keywords_itworld'
+
+
+class KeywordsRecentit(models.Model):
+    idx = models.IntegerField(primary_key=True)
+    words = models.CharField(max_length=50)
+    ranks = models.FloatField()
+
+    class Meta:
+        managed = False
+        db_table = 'keywords_recentit'
+
+
+class KeywordsTechworld(models.Model):
+    idx = models.IntegerField(primary_key=True)
+    words = models.CharField(max_length=50)
+    ranks = models.FloatField()
+
+    class Meta:
+        managed = False
+        db_table = 'keywords_techworld'
+
+
 class MainCustomuser(models.Model):
     id = models.BigAutoField(primary_key=True)
     password = models.CharField(max_length=128)
@@ -193,6 +253,15 @@ class NewsTechworldKT(models.Model):
         db_table = 'news_techworld_k_t'
 
 
+class RelatedKeywords(models.Model):
+    words = models.CharField(max_length=50)
+    related = models.CharField(max_length=158)
+
+    class Meta:
+        managed = False
+        db_table = 'related_keywords'
+
+
 class SocialaccountSocialaccount(models.Model):
     provider = models.CharField(max_length=30)
     uid = models.CharField(max_length=191)
@@ -243,15 +312,6 @@ class SocialaccountSocialtoken(models.Model):
         unique_together = (('app', 'account'),)
 
 
-class TotalKeyRelated(models.Model):
-    key = models.CharField(max_length=50)
-    related = models.CharField(max_length=158)
-
-    class Meta:
-        managed = False
-        db_table = 'total_key_related'
-
-
 class TotalTKeyrank(models.Model):
     idx = models.AutoField(primary_key=True)
     keywords = models.CharField(max_length=100)
@@ -260,6 +320,16 @@ class TotalTKeyrank(models.Model):
     class Meta:
         managed = False
         db_table = 'total_t_keyrank'
+
+
+class TotalTKeywordsRemake(models.Model):
+    idx = models.IntegerField(primary_key=True)
+    words = models.CharField(max_length=50)
+    ranks = models.FloatField()
+
+    class Meta:
+        managed = False
+        db_table = 'total_t_keywords_remake'
 
 
 class TotalnewsKT(models.Model):
