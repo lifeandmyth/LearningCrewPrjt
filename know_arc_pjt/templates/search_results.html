@@ -2,14 +2,20 @@
 
 {% block content %}
     <!-- Display search results here -->
-    {% for news in news_list %}
-        <div class="news-item">
-            <h3><a href="#">{{ news.news_title }}</a></h3>
-            <!-- Add other news details here -->
-        </div>
-    {% empty %}
+    <div class="search_results" style="height: 250px;">
+        <ul class="news-item" style="list-style: none; margin-left: 10%; margin-top: 7%;">
+            {% for news in news_list %}
+            <li style="font-size: 16px; margin: 10px 0"><a href="#">{{ news.news_title }}</a></li>
+            {% empty %}
+        <!-- Add other news details here -->
+        </ul>
         <p>다시 입력해 주세요.</p>
     {% endfor %}
+    </div>
+    
+
+
+
 
 
     <!-- 230623 예슬 start -->
@@ -144,4 +150,5 @@
             console.error('Error fetching search results:', error);
         });
 </script>
+
 {% endblock %}

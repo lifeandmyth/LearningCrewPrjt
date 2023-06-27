@@ -99,7 +99,8 @@ DATABASES = {
         'HOST' : 'mysql-database-1.cwwkiefelujg.ap-northeast-2.rds.amazonaws.com',
         'PORT' : '3306',
         'OPTIONS':{
-            'init_command' : "SET sql_mode='STRICT_TRANS_TABLES'"
+            'init_command' : "SET sql_mode='STRICT_TRANS_TABLES'",
+            # 'use_pure' : True
         }
     }
 }
@@ -185,7 +186,7 @@ ACCOUNT_EMAIL_VERIFICATION = 'none'
 ACCOUNT_SIGNUP_REDIRECT_URL = '/'
 LOGIN_REDIRECT_URL = '/'
 ACCOUNT_LOGOUT_ON_GET = True
-# ACCOUNT_SINGUP_FORM_CLASS = "main.forms.SignupForm" #main 안의 forms의 SignupForm 사용
+ACCOUNT_SINGUP_FORM_CLASS = "main.forms.SignupForm" #main 안의 forms의 SignupForm 사용
 
 
 AUTH_USER_MODEL = 'main.CustomUser'

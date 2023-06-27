@@ -16,10 +16,6 @@ scroll-snap-align: start;
 position: relative;
 }
 
-.mainPart {
-}
-.boardPart {
-}
 ::-webkit-scrollbar {
 display: none;
 }
@@ -171,18 +167,11 @@ div.textBox span.textR {
 
 
 /* board part page */
-.boardPart {
-}
 .boardBox {
     width: 95%;
     height: 95%;
     background-color: #eee;
     border-radius: 30px;
-
-
-
-    /* 동석 작업 */
-    position: relative;
 }
 
 
@@ -206,8 +195,7 @@ p.lank_title {
     background-color: #46b2a0;
     border-radius: 50% 40% 30% 30% / 40% 60% 34% 40%;
 } */
-ul.lank_cont {
-}
+
 
 
 
@@ -251,8 +239,19 @@ div.senior {
 }
 
 
-div.jr_words {
-}
 
-div.jr_words a.jr_word {
-}
+
+
+
+/* 동석 작업 */
+
+/* .search_results_wrapper::after {
+    border-top:15px solid #e6e6e6;
+    border-left: 15px solid transparent;
+    border-right: 0px solid transparent;
+    border-bottom: 0px solid transparent;
+    content:"";
+    position:absolute;
+    bottom:10px;
+    left:-15px;
+   } */

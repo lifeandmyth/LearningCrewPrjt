@@ -10,17 +10,11 @@ from django.contrib.auth.models import AbstractUser
 
  # user models.py
 class CustomUser(AbstractUser):
-    id = models.BigAutoField(primary_key=True)
     # password = models.CharField(max_length=128)
     password = models.CharField(max_length=128, unique=False)
-    last_login = models.DateTimeField(blank=True, null=True)
-    is_superuser = models.IntegerField()
     username = models.CharField(unique=True, max_length=150)
     # email = models.CharField(max_length=254)
     email = models.CharField(max_length=254, unique=False, blank=True, null=True)
-    is_staff = models.IntegerField()
-    is_active = models.IntegerField()
-    date_joined = models.DateTimeField()
 
     CAREER = (
         ('주니어', '신입 ~ 5년차'),
@@ -46,16 +40,6 @@ class CustomUser(AbstractUser):
         managed = False
         db_table = 'main_customuser'
 
-
-
-
-
-class AuthGroup(models.Model):
-    name = models.CharField(unique=True, max_length=150)
-
-    class Meta:
-        managed = False
-        db_table = 'auth_group'
 
 
 
@@ -187,13 +171,10 @@ class MainCustomuser(models.Model):
     # password = models.CharField(max_length=128)
     password = models.CharField(max_length=128, unique=False)
     last_login = models.DateTimeField(blank=True, null=True)
-    is_superuser = models.IntegerField()
     username = models.CharField(unique=True, max_length=150)
     # email = models.CharField(max_length=254)
     email = models.CharField(max_length=254, unique=False, blank=True, null=True)
-    is_staff = models.IntegerField()
-    is_active = models.IntegerField()
-    date_joined = models.DateTimeField()
+    date_joined = models.DateTimeField(null=True)
 
     CAREER = (
         ('주니어', '신입 ~ 5년차'),
@@ -381,6 +362,11 @@ class SocialaccountSocialtoken(models.Model):
         managed = False
         db_table = 'socialaccount_socialtoken'
         unique_together = (('app', 'account'),)
+
+
+
+
+
 
 
 class TotalKeyRelated(models.Model):

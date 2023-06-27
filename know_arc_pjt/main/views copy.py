@@ -21,9 +21,8 @@ from django.core.paginator import Paginator
 # knowark's addition
 def main (request) :
 
-    global total_rankings, bloter_rankings, cwn_rankings, itbiz_rankings, itworld_rankings, yozmit_rankings, techworld_rankings, jr_keywords, sr_keywords, w_c_list, w_list, c_list, cloud_key_list, month_list, cnt_list
+    global total_rankings, bloter_rankings, cwn_rankings, itbiz_rankings, itworld_rankings, yozmit_rankings, techworld_rankings, jr_keywords, sr_keywords
 
-    ############## ranking part
     total_rankings = TotalTKeyrank.objects.all().order_by('idx')[:10]
     bloter_rankings = KeywordsBloter.objects.all().order_by('idx')[:10]
     cwn_rankings = KeywordsCwn.objects.all().order_by('idx')[:10]
@@ -32,43 +31,129 @@ def main (request) :
     yozmit_rankings = KeywordsRecentit.objects.all().order_by('idx')[:10]
     techworld_rankings = KeywordsTechworld.objects.all().order_by('idx')[:10]
 
-    ############## versus part
+
+
+
     jr_keywords = CustomUser.objects.filter(career='주니어').values('career_keyword').distinct()
     sr_keywords = CustomUser.objects.filter(career='시니어').values('career_keyword').distinct()
     # print(jr_keywords)
     # print(sr_keywords)
+    context = {
+        'total_rankings' : total_rankings, 
+        'bloter_rankings' : bloter_rankings,
+        'cwn_rankings' : cwn_rankings,
+        'itbiz_rankings' : itbiz_rankings,
+        'itworld_rankings' : itworld_rankings,
+        'yozmit_rankings' : yozmit_rankings,
+        'techworld_rankings' : techworld_rankings,
+        'jr_keywords' : jr_keywords, 
+        'sr_keywords' : sr_keywords,
+        }
+    
+    # print(artcs)
+    return render (request, 'main.html', context)
 
-    ############## chart part
-    keywords = TotalTKeyrank.objects.values('keywords')
-    cnts = TotalTKeyrank.objects.values('cnt')
-    date_n_keywords = TotalnewsKT.objects.filter().values_list('news_date','total_keywords')
+
+
+
+class SignUp(generic.CreateView):
+    form_class = CustomUserCreationForm
+    success_url = reverse_lazy('/')
+    template_name = 'sign.html'
+
+
+
+
+
+def search_news(request):
+    if request.method == 'POST':
+        keyword = request.POST.get('keyword') 
+        news_list = TotalnewsKT.objects.filter(news_title__icontains=keyword)
+        context = {'news_list': news_list}
+        return render(request, 'search_results.html', context)
+    else:
+        return render(request, 'search_form.html')
+    
+def search_news_by_keyword(request, keyword):
+    news_list = TotalnewsKT.objects.filter(news_title__icontains=keyword)
+    
+    # 페이지당 10개씩
+    items_per_page = 10
+
+    # # 20글자 // 이후에는 ... 으로 표시
+    # news_list = [news if len(news.news_title) <= 20 else news.news_title[:17] + "..." for news in news_list]
+
+    # 5 -> 다음
+    paginator = Paginator(news_list, 5)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    context = {
+        'news_list': page_obj,
+        'keyword': keyword,
+        'total_rankings' : total_rankings, 
+        'bloter_rankings' : bloter_rankings,
+        'cwn_rankings' : cwn_rankings,
+        'itbiz_rankings' : itbiz_rankings,
+        'itworld_rankings' : itworld_rankings,
+        'yozmit_rankings' : yozmit_rankings,
+        'techworld_rankings' : techworld_rankings,
+        'jr_keywords' : jr_keywords, 
+        'sr_keywords' : sr_keywords,
+    }
 
     
+    return render(request, 'search_results.html', context)
+
+
+
+
+
+
+
+
+def post_view(request):
+    # 20230626 bar-chart
+    keywords = TotalTKeyrank.objects.values('keywords')
+    # print(type(keywords))
+    # print(posts)
     w_list = []
     for keyword in keywords:
         w = keyword.get('keywords')
         w_list.append(w)
-
+    # print(w_list)
+    cnts = TotalTKeyrank.objects.values('cnt')
+    # print(cnts)
     c_list = []
     for cnt in cnts:
         c = cnt.get('cnt')
         c_list.append(c)
-
+    # print(c_list)
     w_c_list = []
     for pair in zip(w_list, c_list):
         # print(pair)
         w_c_list.append(pair)
+    # posts = pd.DataFrame(w_c_list, columns=['words, cnt'])
+    # print(w_c_list)
+
+    ## 20230626 line-chart
+    date_n_keywords = TotalnewsKT.objects.filter().values_list('news_date','total_keywords')
+    # print(date_n_keywords)
 
     date_list = []
     keyword_l = []
     for d_n_k in date_n_keywords:
         date = d_n_k[0]
+        # object로 만들지 않으면 편집이 어려움
         date = date.strftime("%Y-%m-%d")
         date_list.append(date)
         key = d_n_k[1]
         keyword_l.append(key)
+    # print(date_list, keyword_l) 
+    
+    # 월별로 집계하기
 
-
+    # 모듈화하기
     def get_keyword_monthly_agg(keyword_l, date_list):
         text_data = keyword_l
         date_data = date_list
@@ -127,9 +212,12 @@ def main (request) :
         return word_n_cnt_list
 
     total_key_list = get_keyword_monthly_agg(keyword_l, date_list)
+    # 날짜 정순이 되게끔 뒤집기
     total_key_list = total_key_list[::-1]
 
-
+    # total_key_list
+    # 년별로 집계하기
+    # print(total_key_list) 
     cloud_key_list = [] 
     month_list = []
     cnt_list = []
@@ -143,93 +231,19 @@ def main (request) :
             cnt_list.append(tk[2])
         else:
             pass
-    # print(cloud_key_list)
+    print(cloud_key_list)
 
+    context = {"w_c_list":w_c_list, 
+                "w_list":w_list, 
+                "c_list":c_list,
+                "total_key_list":cloud_key_list,
+                "month_list":month_list,
+                "cnt_list":cnt_list
+              }
+    return render(request, 'chart.html', context)
+    # return render(request, 'index.html', {"words":w_list,"cnts":c_list})
+    # return render(request, 'index.html', {"posts": posts, "cnt":cnt})
 
-
-    context = {
-        'total_rankings' : total_rankings, 
-        'bloter_rankings' : bloter_rankings,
-        'cwn_rankings' : cwn_rankings,
-        'itbiz_rankings' : itbiz_rankings,
-        'itworld_rankings' : itworld_rankings,
-        'yozmit_rankings' : yozmit_rankings,
-        'techworld_rankings' : techworld_rankings,
-        'jr_keywords' : jr_keywords, 
-        'sr_keywords' : sr_keywords,
-        "w_c_list":w_c_list, 
-        "w_list":w_list, 
-        "c_list":c_list,
-        "total_key_list":cloud_key_list,
-        "month_list":month_list,
-        "cnt_list":cnt_list
-        }
-    
-    # print(artcs)
-    return render (request, 'main.html', context)
-
-
-
-
-class SignUp(generic.CreateView):
-    form_class = CustomUserCreationForm
-    success_url = reverse_lazy('/')
-    template_name = 'sign.html'
-
-
-
-
-
-def search_news(request):
-    if request.method == 'POST':
-        keyword = request.POST.get('keyword') 
-        news_list = TotalnewsKT.objects.filter(news_title__icontains=keyword)
-        context = {'news_list': news_list}
-        return render(request, 'search_results.html', context)
-    else:
-        return render(request, 'search_form.html')
-    
-def search_news_by_keyword(request, keyword):
-    news_list = TotalnewsKT.objects.filter(news_title__icontains=keyword)
-    
-    # 페이지당 10개씩
-    items_per_page = 10
-
-    # # 20글자 // 이후에는 ... 으로 표시
-    # news_list = [news if len(news.news_title) <= 20 else news.news_title[:17] + "..." for news in news_list]
-
-    # 5 -> 다음
-    paginator = Paginator(news_list, 5)
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
-
-    context = {
-        'news_list': page_obj,
-        'keyword': keyword,
-        'total_rankings' : total_rankings, 
-        'bloter_rankings' : bloter_rankings,
-        'cwn_rankings' : cwn_rankings,
-        'itbiz_rankings' : itbiz_rankings,
-        'itworld_rankings' : itworld_rankings,
-        'yozmit_rankings' : yozmit_rankings,
-        'techworld_rankings' : techworld_rankings,
-        'jr_keywords' : jr_keywords, 
-        'sr_keywords' : sr_keywords,
-        "w_c_list":w_c_list, 
-        "w_list":w_list, 
-        "c_list":c_list,
-        "total_key_list":cloud_key_list,
-        "month_list":month_list,
-        "cnt_list":cnt_list
-    }
-    
-
-    
-    return render(request, 'search_results.html', context)
-
-
-
-
-
-
-
+# 1. DB에서 데이터 쿼리 해오고
+# 2. 해당 쿼리한 결과 중 date와 keywords 컬럼만 추려서
+# 3. 월별 집계치를 반환

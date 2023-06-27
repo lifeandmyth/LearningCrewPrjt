@@ -1,5 +1,5 @@
 
-from django.urls import path
+from django.urls import path, include
 from . import views
  
 urlpatterns = [
@@ -12,6 +12,8 @@ urlpatterns = [
     path('', views.main, name='lankings'),
 
     path('search/', views.search_news, name='search_news'),
-    path('search/<str:keyword>/', views.search_news_by_keyword, name='search_results_by_keyword')
+    path('search/<str:keyword>/', views.search_news_by_keyword, name='search_results_by_keyword'),
 
+    # path('#page2', views.post_view),
+    
 ]
