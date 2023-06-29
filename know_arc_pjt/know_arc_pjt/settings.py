@@ -50,8 +50,6 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',  #google sign
     
-    'widget_tweaks',
-
     'main',
 ]
 

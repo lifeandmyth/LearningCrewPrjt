@@ -33,7 +33,7 @@
                     <span>노아</span>
             </a>
             <input type="search" id="search-input">
-            <a type="submit" href="#page2" class="sch_go" onclick="return searchKeyword();">
+            <a type="submit" href="#page2" class="sch_go" onclick="return searchKeyword();" onkeypress="show_name(event)">
                 <span>ㅏ크</span>
             </a>
         </div>
@@ -55,8 +55,8 @@
 
             <!-- 0626 동석 search -->
             
-            <div class="search_results_wrapper p-2" style="background-color: #FFFAFA; border-radius: 30% 30% 44% 40% / 35% 40% 60% 60%; margin: 18% 30% 0 6%; width: 43%; height: 350px;">
-                <p style="margin-left: 40%; font-size: 25px; font-weight: 700; margin-top: -25px;">이달의 뉴스</p>
+            <div class="search_results_wrapper p-2" style="background-color: #FFFAFA; margin: 20% 30% 0 6%; width: 44%; height: 330px; border-radius: 25px;">
+                <p style="margin-left: 40%; font-size: 25px; font-weight: 700;">이달의 뉴스</p>
                 {% block content %}
                 {% endblock %}
             </div>
@@ -72,75 +72,76 @@
                     {% endfor %}
                 </ul>
             </div> -->
-
-            <div id="carouselExampleDark" class="carousel carousel-dark slide lanking">
-            <!-- <div id="carouselExampleDark" class="carousel carousel-dark slide lanking" data-bs-ride="carousel"> -->
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
-                    <p class="lank_title" style="font-size: 25px; font-weight: 700; margin-top: 5%; text-align: center;">통합 랭킹</p>
-                    <ul class="lank_cont" style="list-style:none; padding: 0; font-size: 18px; margin: 5px;">
-                        {% for total_ranking in total_rankings %}
-                        <li style="margin-left: 30%;">{{ total_ranking.idx }}. &nbsp;&nbsp;&nbsp; {{ total_ranking.keywords }}</li>
-                        {% endfor %}
-                    </ul>
+            <div>
+                <div id="carouselExampleDark" class="carousel carousel-dark slide lanking">
+                <!-- <div id="carouselExampleDark" class="carousel carousel-dark slide lanking" data-bs-ride="carousel"> -->
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                        <p class="lank_title" style="font-size: 25px; font-weight: 700; margin-top: 5%; text-align: center;">통합 랭킹</p>
+                        <ul class="lank_cont" style="list-style:none; padding: 0; font-size: 18px; margin: 5px;">
+                            {% for total_ranking in total_rankings %}
+                            <li style="margin-left: 30%;">{{ total_ranking.idx }}. &nbsp;&nbsp;&nbsp; {{ total_ranking.keywords }}</li>
+                            {% endfor %}
+                        </ul>
+                        </div>
+                        <div class="carousel-item">
+                        <p class="lank_title" style="font-size: 25px; font-weight: 700; margin-top: 5%; text-align: center;">CWN</p>
+                        <ul class="lank_cont" style="list-style:none; padding: 0; font-size: 18px; margin: 5px;">
+                            {% for cwn_ranking in cwn_rankings %}
+                            <li style="margin-left: 30%;">{{ cwn_ranking.idx }}. &nbsp;&nbsp;&nbsp; {{ cwn_ranking.words }}</li>
+                            {% endfor %}
+                        </ul>
+                        </div>
+                        <div class="carousel-item">
+                        <p class="lank_title" style="font-size: 25px; font-weight: 700; margin-top: 5%; text-align: center;">TECH WORLD</p>
+                        <ul class="lank_cont" style="list-style:none; padding: 0; font-size: 18px; margin: 5px;">
+                            {% for techworld_ranking in techworld_rankings %}
+                            <li style="margin-left: 30%;">{{ techworld_ranking.idx }}. &nbsp;&nbsp;&nbsp; {{ techworld_ranking.words }}</li>
+                            {% endfor %}
+                        </ul>
+                        </div>
+                        <div class="carousel-item">
+                        <p class="lank_title" style="font-size: 25px; font-weight: 700; margin-top: 5%; text-align: center;">요즘IT</p>
+                        <ul class="lank_cont" style="list-style:none; padding: 0; font-size: 18px; margin: 5px;">
+                            {% for yozmit_ranking in yozmit_rankings %}
+                            <li style="margin-left: 30%;">{{ yozmit_ranking.idx }}. &nbsp;&nbsp;&nbsp; {{ yozmit_ranking.words }}</li>
+                            {% endfor %}
+                        </ul>
+                        </div>
+                        <div class="carousel-item">
+                        <p class="lank_title" style="font-size: 25px; font-weight: 700; margin-top: 5%; text-align: center;">BLOTER</p>
+                        <ul class="lank_cont" style="list-style:none; padding: 0; font-size: 18px; margin: 5px;">
+                            {% for bloter_ranking in bloter_rankings %}
+                            <li style="margin-left: 30%;">{{ bloter_ranking.idx }}. &nbsp;&nbsp;&nbsp; {{ bloter_ranking.words }}</li>
+                            {% endfor %}
+                        </ul>
+                        </div>
+                        <div class="carousel-item">
+                        <p class="lank_title" style="font-size: 25px; font-weight: 700; margin-top: 5%; text-align: center;">IT WORLD</p>
+                        <ul class="lank_cont" style="list-style:none; padding: 0; font-size: 18px; margin: 5px;">
+                            {% for itworld_ranking in itworld_rankings %}
+                            <li style="margin-left: 30%;">{{ itworld_ranking.idx }}. &nbsp;&nbsp;&nbsp; {{ itworld_ranking.words }}</li>
+                            {% endfor %}
+                        </ul>
+                        </div>
+                        <div class="carousel-item">
+                        <p class="lank_title" style="font-size: 25px; font-weight: 700; margin-top: 5%; text-align: center;">IT비즈뉴스</p>
+                        <ul class="lank_cont" style="list-style:none; padding: 0; font-size: 18px; margin: 5px;">
+                            {% for itbiz_ranking in itbiz_rankings %}
+                            <li style="margin-left: 30%;">{{ itbiz_ranking.idx }}. &nbsp;&nbsp;&nbsp; {{ itbiz_ranking.words }}</li>
+                            {% endfor %}
+                        </ul>
+                        </div>
                     </div>
-                    <div class="carousel-item">
-                    <p class="lank_title" style="font-size: 25px; font-weight: 700; margin-top: 5%; text-align: center;">CWN</p>
-                    <ul class="lank_cont" style="list-style:none; padding: 0; font-size: 18px; margin: 5px;">
-                        {% for cwn_ranking in cwn_rankings %}
-                        <li style="margin-left: 30%;">{{ cwn_ranking.idx }}. &nbsp;&nbsp;&nbsp; {{ cwn_ranking.words }}</li>
-                        {% endfor %}
-                    </ul>
-                    </div>
-                    <div class="carousel-item">
-                    <p class="lank_title" style="font-size: 25px; font-weight: 700; margin-top: 5%; text-align: center;">TECH WORLD</p>
-                    <ul class="lank_cont" style="list-style:none; padding: 0; font-size: 18px; margin: 5px;">
-                        {% for techworld_ranking in techworld_rankings %}
-                        <li style="margin-left: 30%;">{{ techworld_ranking.idx }}. &nbsp;&nbsp;&nbsp; {{ techworld_ranking.words }}</li>
-                        {% endfor %}
-                    </ul>
-                    </div>
-                    <div class="carousel-item">
-                    <p class="lank_title" style="font-size: 25px; font-weight: 700; margin-top: 5%; text-align: center;">요즘IT</p>
-                    <ul class="lank_cont" style="list-style:none; padding: 0; font-size: 18px; margin: 5px;">
-                        {% for yozmit_ranking in yozmit_rankings %}
-                        <li style="margin-left: 30%;">{{ yozmit_ranking.idx }}. &nbsp;&nbsp;&nbsp; {{ yozmit_ranking.words }}</li>
-                        {% endfor %}
-                    </ul>
-                    </div>
-                    <div class="carousel-item">
-                    <p class="lank_title" style="font-size: 25px; font-weight: 700; margin-top: 5%; text-align: center;">BLOTER</p>
-                    <ul class="lank_cont" style="list-style:none; padding: 0; font-size: 18px; margin: 5px;">
-                        {% for bloter_ranking in bloter_rankings %}
-                        <li style="margin-left: 30%;">{{ bloter_ranking.idx }}. &nbsp;&nbsp;&nbsp; {{ bloter_ranking.words }}</li>
-                        {% endfor %}
-                    </ul>
-                    </div>
-                    <div class="carousel-item">
-                    <p class="lank_title" style="font-size: 25px; font-weight: 700; margin-top: 5%; text-align: center;">IT WORLD</p>
-                    <ul class="lank_cont" style="list-style:none; padding: 0; font-size: 18px; margin: 5px;">
-                        {% for itworld_ranking in itworld_rankings %}
-                        <li style="margin-left: 30%;">{{ itworld_ranking.idx }}. &nbsp;&nbsp;&nbsp; {{ itworld_ranking.words }}</li>
-                        {% endfor %}
-                    </ul>
-                    </div>
-                    <div class="carousel-item">
-                    <p class="lank_title" style="font-size: 25px; font-weight: 700; margin-top: 5%; text-align: center;">IT비즈뉴스</p>
-                    <ul class="lank_cont" style="list-style:none; padding: 0; font-size: 18px; margin: 5px;">
-                        {% for itbiz_ranking in itbiz_rankings %}
-                        <li style="margin-left: 30%;">{{ itbiz_ranking.idx }}. &nbsp;&nbsp;&nbsp; {{ itbiz_ranking.words }}</li>
-                        {% endfor %}
-                    </ul>
-                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
                 </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
-                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                  <span class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
-                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                  <span class="visually-hidden">Next</span>
-                </button>
             </div>
 
 
@@ -150,7 +151,7 @@
                     <div class="jr_words position-absolute top-50 start-50 translate-middle">
                         {% for jr_keyword in jr_keywords %}
                         <!-- <a href="https://www.google.co.kr/search?q={{jr_keyword.career_keyword}}" target="_blank" style="font-size: 30px; font-weight: 700; color: #333; line-height: 25px;" class="d-flex justify-content-center">{{ jr_keyword.career_keyword }}</a><br> -->
-                        <a href="https://www.google.co.kr/search?q={{jr_keyword.career_keyword}}" target="_blank" style="font-size: 20px; font-weight: 700; color: #333; line-height: 25px;" class="d-flex justify-content-center">{{ jr_keyword.career_keyword }}</a><br>
+                        <a href="https://www.google.co.kr/search?q={{jr_keyword.career_keyword}}" target="_blank" style="font-size: 25px; font-weight: 700; color: #333; line-height: 25px;" class="d-flex justify-content-center">{{ jr_keyword.career_keyword }}</a><br>
                         {% endfor %}
                     </div>
                 </div>
@@ -159,7 +160,7 @@
                     <div class="sr_words position-absolute top-50 start-50 translate-middle" style="text-align: center;">
                         {% for sr_keyword in sr_keywords %}
                         <!-- <a href="https://www.google.co.kr/search?q={{sr_keyword.career_keyword}}" target="_blank" style="font-size: 40px; font-weight: 700; color: #333;">{{ sr_keyword.career_keyword }} </a> -->
-                        <a href="https://www.google.co.kr/search?q={{sr_keyword.career_keyword}}" target="_blank" style="font-size: 20px; font-weight: 700; color: #333;">{{ sr_keyword.career_keyword }} </a>
+                        <a href="https://www.google.co.kr/search?q={{sr_keyword.career_keyword}}" target="_blank" style="font-size: 25px; font-weight: 700; color: #333;">{{ sr_keyword.career_keyword }} </a>
                         {% endfor %}
                     </div>
                 </div>

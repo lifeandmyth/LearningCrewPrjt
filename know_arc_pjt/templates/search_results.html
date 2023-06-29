@@ -2,15 +2,16 @@
 
 {% block content %}
     <!-- Display search results here -->
-    <div class="search_results" style="height: 250px;">
-        <ul class="news-item" style="list-style: none; margin-left: 10%; margin-top: 7%;">
+    <div class="search_results overflow-auto" style="height: 250px;">
+        <ul style="list-style: none; padding-right: 2%;">
             {% for news in news_list %}
-            <li style="font-size: 16px; margin: 10px 0"><a href="#">{{ news.news_title }}</a></li>
-            {% empty %}
-        <!-- Add other news details here -->
+                <li class="artcs" style="padding: 10px 17px; margin-bottom: 7px; border-radius: 100px; background-color: #ccc; width: fit-content;"><a href="#">{{ news.news_title }}</a></li>
+                <!-- <a class="btn btn-primary mb-2" role="button">{{ news.news_title }}</a> -->
+                {% empty %}
+            <!-- Add other news details here -->
         </ul>
-        <p>다시 입력해 주세요.</p>
-    {% endfor %}
+            <p>다시 입력해 주세요.</p>
+            {% endfor %}
     </div>
     
 

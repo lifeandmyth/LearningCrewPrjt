@@ -238,6 +238,10 @@ div.senior {
     margin-bottom: 0;
 }
 
+.jr_words a:nth-child(1) {
+    color: red;
+}
+
 
 
 
@@ -245,13 +249,29 @@ div.senior {
 
 /* 동석 작업 */
 
-/* .search_results_wrapper::after {
-    border-top:15px solid #e6e6e6;
+.search_results_wrapper li.artcs:nth-child(5)::after {
+    border: 0px solid transparent;
     border-left: 15px solid transparent;
-    border-right: 0px solid transparent;
-    border-bottom: 0px solid transparent;
+    border-right: 15px solid transparent;
+    border-bottom: 15px solid #ccc;
     content:"";
     position:absolute;
-    bottom:10px;
-    left:-15px;
-   } */
+    bottom:6.7%;
+    left:7.5%;
+   }
+
+
+.related_words li.rkword::after {
+    border: 0px solid transparent;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-bottom: 15px solid #0079FF;
+    content:"";
+    position:absolute;
+    top: 46%;
+    right:5.2%;
+    z-index: 1000;
+   }
+
+
+

@@ -172,6 +172,7 @@ class MainCustomuser(models.Model):
     password = models.CharField(max_length=128, unique=False)
     last_login = models.DateTimeField(blank=True, null=True)
     username = models.CharField(unique=True, max_length=150)
+    USERNAME_FIELD = 'username'
     # email = models.CharField(max_length=254)
     email = models.CharField(max_length=254, unique=False, blank=True, null=True)
     date_joined = models.DateTimeField(null=True)
@@ -312,6 +313,19 @@ class NewsTechworldT(models.Model):
     class Meta:
         managed = False
         db_table = 'news_techworld_t'
+
+
+class RelatedKeywords(models.Model):
+    words = models.CharField(max_length=50)
+    related = models.CharField(max_length=158)
+
+    class Meta:
+        managed = False
+        db_table = 'related_keywords'
+
+
+
+        
 
 
 class SocialaccountSocialaccount(models.Model):
