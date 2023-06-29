@@ -15,6 +15,10 @@ from .models import TotalTKeyrank, TotalnewsKT, MainCustomuser, CustomUser, Keyw
 from .models import TotalnewsKT
 from django.core.paginator import Paginator
 
+# 230629 김경민 신입vs경력
+from wordcloud import WordCloud
+from collections import Counter
+
 
 
 # Create your views here.
@@ -35,8 +39,8 @@ def main (request) :
     ############## versus part
     jr_keywords = CustomUser.objects.filter(career='주니어').values('career_keyword').distinct()
     sr_keywords = CustomUser.objects.filter(career='시니어').values('career_keyword').distinct()
-    # print(jr_keywords)
-    # print(sr_keywords)
+    print(jr_keywords)
+    print(sr_keywords)
 
     ############## chart part
     date_n_keywords = TotalnewsKT.objects.filter().values_list('news_date','total_keywords')
@@ -138,7 +142,35 @@ def main (request) :
         list_m_row.append(list_m)
         list_cl_row.append(list_cl)
 
+    #### 20230629 워드클라우드 만들기
+    # open으로 txt파일을 열고 read()를 이용하여 읽는다.
+    list_jr = []
+    for jr in jr_keywords:
+        list_jr.append(jr.get('career_keyword'))
+    list_sr = []
+    for sr in sr_keywords:
+        list_sr.append(sr.get('career_keyword'))
+    print(list_jr, list_sr)
+    # 가장 많이 나온 단어부터 40개를 저장한다.
+    counts_jr = Counter(list_jr)
+    tags_jr = counts_jr.most_common(40) 
+    counts_sr = Counter(list_sr)
+    tags_sr = counts_sr.most_common(40) 
 
+    # print(tags_jr, tags_sr)
+    wc_jr = WordCloud(font_path="C:/playdata_lab/LearningCrewPrjt/know_arc_pjt_0628/static/assets/fonts/MBC 1961굴림 M.ttf",background_color="rgba(255, 255, 255, 0)", mode="RGBA", colormap='copper_r',max_font_size=27, width=335, height=190)
+    cloud_jr = wc_jr.generate_from_frequencies(dict(tags_jr))
+    # WordCloud를 생성한다.
+    # 한글을 분석하기위해 font를 한글로 지정해주어야 된다. macOS는 .otf , window는 .ttf 파일의 위치를
+    # 지정해준다. (ex. '/Font/GodoM.otf')
+    wc_sr = WordCloud(font_path="C:/playdata_lab/LearningCrewPrjt/know_arc_pjt_0628/static/assets/fonts/MBC 1961굴림 M.ttf",background_color="#FFEAD2", colormap='winter_r', max_font_size=27, width=335, height=190)
+    cloud_sr = wc_sr.generate_from_frequencies(dict(tags_sr))
+
+
+    # 생성된 WordCloud를 test.jpg로 보낸다.
+    cloud_jr.to_file('C:/playdata_lab/LearningCrewPrjt/know_arc_pjt_0628/static/assets/jr.png')
+    cloud_sr.to_file('C:/playdata_lab/LearningCrewPrjt/know_arc_pjt_0628/static/assets/sr.jpg')
+    ##### close
 
     context = {
         "month_list_0":list_m_row[0],
@@ -401,11 +433,11 @@ def search_news_by_keyword(request, keyword):
         'itworld_rankings' : itworld_rankings,
         'yozmit_rankings' : yozmit_rankings,
         'techworld_rankings' : techworld_rankings,
-        'jr_keywords' : jr_keywords, 
-        'sr_keywords' : sr_keywords,
+
     }
     
-
+        # 'jr_keywords' : jr_keywords, 
+        # 'sr_keywords' : sr_keywords,
     
     return render(request, 'search_results.html', context)
 

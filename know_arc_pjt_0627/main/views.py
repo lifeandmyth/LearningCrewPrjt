@@ -15,7 +15,9 @@ from .models import TotalTKeyrank, TotalTKeywordsRemake , TotalnewsKT, MainCusto
 from .models import TotalnewsKT
 from django.core.paginator import Paginator
 
-
+# python으로 wordcloud 구현하기
+from wordcloud import WordCloud
+from collections import Counter
 
 # Create your views here.
 # knowark's addition
@@ -194,6 +196,7 @@ def search_news(request):
 
     global total_rankings, bloter_rankings, cwn_rankings, itbiz_rankings, itworld_rankings, yozmit_rankings, techworld_rankings, jr_keywords, sr_keywords, w_c_list, w_list, c_list, cloud_key_list, month_list, cnt_list
 
+def search_news(request):
     if request.method == 'POST':
         keyword = request.POST.get('keyword') 
         news_list = TotalnewsKT.objects.filter(news_title__icontains=keyword)
@@ -208,6 +211,7 @@ def search_news_by_keyword(request, keyword):
     
     news_list = TotalnewsKT.objects.filter(news_title__icontains=keyword)
     
+
     # print(keyword)
     # 페이지당 10개씩
     items_per_page = 10
@@ -232,19 +236,19 @@ def search_news_by_keyword(request, keyword):
         # keyword_l.append(key)
         ### 20230627 김경민 keyword를 읽고 리스트 출력
         
+
         if keyword == '프로그래밍':
             # print(key)
             key = key.split(",")
             # print(key)
             if '프로그래밍' in key or '노트북' in key or '언어' in key or '추천' in key or '자바' in key or '자격증' in key or '웹' in key or '개발' in key or '프레임워크' in key or '지능' in key or '주목' in key or '클라우드' in key:
                 date_list.append(date)
-                # print(date_list)
                 key = ','.join(key)
-                # print(key)
                 keyword_l.append(key)
             else:
                 pass
         
+
         elif keyword == '트렌드':
             key = key.split(",")
             if '트렌드' in key or '분석' in key or '소비' in key or '투자' in key or '인기' in key or '데이터' in key or '개발' in key or '공개' in key or '규모' in key or '메타' in key or '솔루션' in key or '유치' in key:
@@ -257,13 +261,7 @@ def search_news_by_keyword(request, keyword):
         elif keyword == '코드':
             key = key.split(",")
             if '코드' in key or '네이버' in key or '트렌드' in key or '인기' in key or '언어' in key or '서비스' in key or '플랫폼' in key or '업체' in key or '카드' in key or '기사' in key or '데이터' in key  or '보안' in key  or '관리' in key  or '웹' in key or '선정' in key or '기반' in key or '코드' in key or '웨어' in key or '연구' in key or '지원' in key or '네트워크' in key or '관리' in key or '발표' in key:
-                date_list.append(date)
-                key = ','.join(key)
-                keyword_l.append(key)
-            else:
-                pass
-        
-    print(date_list,keyword_l) 
+
     related_words = ""
     wordcloud_link = 'wordcloud'
     # 연관어 목록 불러오기
@@ -279,6 +277,7 @@ def search_news_by_keyword(request, keyword):
     else:
         related_words = RelatedKeywords.objects.filter().values_list('related')
         wordcloud_link = 'wordcloud'
+
 
     # 월별로 집계하기
     # 모듈화하기
@@ -374,6 +373,7 @@ def search_news_by_keyword(request, keyword):
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
+<<<<<<< HEAD
     # string화
  
     print(related_words)
@@ -412,6 +412,9 @@ def search_news_by_keyword(request, keyword):
         'keyword': keyword,
         # 신호 확인용
         "checkres": checkres,
+        #### 230627 김경민 close
+        'news_list': page_obj,
+        'keyword': keyword,
         'total_rankings' : total_rankings, 
         'bloter_rankings' : bloter_rankings,
         'cwn_rankings' : cwn_rankings,
@@ -421,6 +424,7 @@ def search_news_by_keyword(request, keyword):
         'techworld_rankings' : techworld_rankings,
         'jr_keywords' : jr_keywords, 
         'sr_keywords' : sr_keywords,
+
 
     }
     # 20230627 김경민 검색창-챠트 연동 기능 통합 close

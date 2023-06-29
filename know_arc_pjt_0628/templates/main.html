@@ -143,25 +143,19 @@
                     </button>
                 </div>
             </div>
-
+  
 
             <div class="versus">
                 <div class="junior position-relative">
-                    <p style="font-family: 'Black Han Sans', sans-serif; font-size: 37px; padding-left: 30px; color: #88b4b1; line-height: 45px;">주니어</p>
-                    <div class="jr_words position-absolute top-50 start-50 translate-middle">
-                        {% for jr_keyword in jr_keywords %}
-                        <!-- <a href="https://www.google.co.kr/search?q={{jr_keyword.career_keyword}}" target="_blank" style="font-size: 30px; font-weight: 700; color: #333; line-height: 25px;" class="d-flex justify-content-center">{{ jr_keyword.career_keyword }}</a><br> -->
-                        <a href="https://www.google.co.kr/search?q={{jr_keyword.career_keyword}}" target="_blank" style="font-size: 20px; font-weight: 700; color: #333; line-height: 25px;" class="d-flex justify-content-center">{{ jr_keyword.career_keyword }}</a><br>
-                        {% endfor %}
+                    <p style="font-family: 'Black Han Sans', sans-serif; font-size: 37px; padding-left: 30px; color: #708b8a; line-height: 45px;">주니어</p>
+                    <div class="jr_words position-absolute top-50 start-50 translate-middle" >
+                      
                     </div>
                 </div>
                 <div class="senior position-relative">
                     <p style="font-family: 'Black Han Sans', sans-serif; font-size: 37px; padding-right: 30px; color: #a79980; line-height: 37px;">시니어</p>
                     <div class="sr_words position-absolute top-50 start-50 translate-middle" style="text-align: center;">
-                        {% for sr_keyword in sr_keywords %}
-                        <!-- <a href="https://www.google.co.kr/search?q={{sr_keyword.career_keyword}}" target="_blank" style="font-size: 40px; font-weight: 700; color: #333;">{{ sr_keyword.career_keyword }} </a> -->
-                        <a href="https://www.google.co.kr/search?q={{sr_keyword.career_keyword}}" target="_blank" style="font-size: 20px; font-weight: 700; color: #333;">{{ sr_keyword.career_keyword }} </a>
-                        {% endfor %}
+                        
                     </div>
                 </div>
             </div>
@@ -171,5 +165,16 @@
 </div>
 
 
-
 {% endblock %}
+<!-- <img src="/static/assets/jr.jpg" alt="jr" style="width:200px; height:100px"> -->
+
+                        <!-- {% for jr_keyword in jr_keywords %} -->
+                        <!-- <a href="https://www.google.co.kr/search?q={{jr_keyword.career_keyword}}" target="_blank" style="font-size: 30px; font-weight: 700; color: #333; line-height: 25px;" class="d-flex justify-content-center">{{ jr_keyword.career_keyword }}</a><br> -->
+                        <!-- <a href="https://www.google.co.kr/search?q={{jr_keyword.career_keyword}}" target="_blank" style="font-size: 20px; font-weight: 700; color: #333; line-height: 25px;" class="d-flex justify-content-center">{{ jr_keyword.career_keyword }}</a><br>
+                        {% endfor %} -->
+<!-- <img src="/static/assets/sr.jpg" alt="sr" style="width:200px; height:100px"> -->
+
+                        <!-- {% for sr_keyword in sr_keywords %} -->
+                        <!-- <a href="https://www.google.co.kr/search?q={{sr_keyword.career_keyword}}" target="_blank" style="font-size: 40px; font-weight: 700; color: #333;">{{ sr_keyword.career_keyword }} </a> -->
+                        <!-- <a href="https://www.google.co.kr/search?q={{sr_keyword.career_keyword}}" target="_blank" style="font-size: 20px; font-weight: 700; color: #333;">{{ sr_keyword.career_keyword }} </a>
+                        {% endfor %} -->
