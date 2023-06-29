@@ -1,0 +1,17 @@
+1. git pull origin hds
+
+2. 코딩 작업 하기
+
+3. git add .
+
+4  git commit -m "메세지 입력하기"
+
+5. git pull origin hds
+
+6. git pull orighin hds
+
+7. 오류: you have divergent branches and need to specify ... 
+-> pull 받는 폴더가 두 개 이상의 브랜치로 지정되있음 (주로
+ pull 받기 전에 별개로 작업했을 경우 생기는 현상)
+-> git config pull.rebase false로 처리 (default strategy)
+-> 이후 pull하고, 다시 push하면 다시 하나의 브랜치로 통일됨

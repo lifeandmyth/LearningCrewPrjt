@@ -1,0 +1,240 @@
+{% load static %}
+<!-- {{w_c_list}} -->
+<div class="charset position-absolute top-0 start-0" style="width: 70%; height: 100%; z-index: 1000; margin-left: 6%;">
+
+
+  <div class="chart-wrapper d-flex justify-content-between" style="margin-top: 100px; padding-bottom:30px; padding-right:30px; background-color: #FFFAFA;">
+      <div class="bar_c_area" style="width: 48%;">
+          <canvas id="bar_c" style="width:500px; height:300px">
+          </canvas>
+      </div>
+      <div class="line_c_area" style="width: 48%;">
+          <canvas id="line_c" style="width:500px; height:300px">
+          </canvas>
+      </div>
+      <div class="related_words" style="width: 100%; margin-left: 15px;">
+          <p class="d-flex justify-content-center" style="margin-top:10px; font-size : 20px; font-weight: 700; ">추천 연관어</p>
+          <table>
+            <tr>
+            
+            <td>
+              {% for r in related_words_odd %}
+              <span>{{r}}&nbsp</span><br>
+              {% endfor%}
+  
+            </td>
+            <td>
+              {% for r in related_words_even %}
+              <span>{{r}}&nbsp</span><br>
+              {% endfor%}
+            </td>
+            </tr>
+          </table>
+
+          
+
+        
+        
+      </div>
+  </div>
+  <!-- 20230628 김경민 wordcloud 위치 변경 -->
+  <div class="word_w_area position-absolute bottom-0 end-0" style=" margin-bottom: 30px; margin-right: 20px; ">
+      <p class="d-flex justify-content-center" style="font-size : 25px; font-weight: 700; margin-bottom: -20px;">워드 클라우드</p>
+      <div style="background-color: #FFFAFA; border-radius: 15%; width:450px; height: 350px; text-align: center;">
+        {% if wordcloud_link == 'wordcloud' %}
+        <img width="400px" style="margin-top: 50px" src="{% static 'assets/wordcloud.png' %}">
+        {% elif wordcloud_link == 'computer_lang' %}
+        <img width="400px" style="margin-top: 50px" src="{% static 'assets/computer_lang_png.png' %}">
+        {% elif wordcloud_link == 'computer_pop' %}
+        <img width="400px" style="margin-top: 50px" src="{% static 'assets/computer_pop_png.png' %}">
+        {% elif wordcloud_link == 'computer_code' %}
+        <img width="400px" style="margin-top: 50px" src="{% static 'assets/computer_code_png.png' %}">
+        {% else %}
+        <img width="400px" src="{% static 'assets/wordcloud.png' %}">
+        {% endif %}
+      </div>
+      
+  </div>
+</div>
+
+<div>
+  <canvas id="myChart"></canvas>
+</div>
+
+
+<!-- // 경민님 차트 -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+
+<script>
+ 
+  const data = {
+  labels: [{% for k in key_list%} '{{k}}', {% endfor %}],
+  datasets: [{
+          label: "2023년 4월 키워드",
+          // yAxisID: 'y-left',
+          backgroundColor: ['rgb(128, 128, 128,0.7)','rgb(127, 127, 127,0.7)','rgb(126, 126, 126,0.7)','rgb(125, 125, 125,0.7)','rgb(124, 124, 124,0.7)'],
+          hoverBackgroundColor: 'rgb(236, 229, 199,0.8)',
+          borderColor: 'rgb(17, 106, 123,1)',
+          borderWidth: 1,
+          data: [{%for c in cnt_list_2%} '{{ c }}', {% endfor %}],
+      },{
+          label: "2023년 5월 키워드",
+          // yAxisID: 'y-right',
+          backgroundColor: ['rgb(25, 167, 206,0.7)','rgb(25, 167, 206,0.7)','rgb(25, 167, 206,0.7)','rgb(25, 167, 206,0.7)','rgb(25, 167, 206,0.7)'],
+          hoverBackgroundColor: 'RGB(216, 255, 255,0.8)',
+          borderColor: 'RGB(0, 2, 29,1)',
+          borderWidth: 1,
+          data: [{%for c in cnt_list_0%} '{{ c }}', {% endfor %}],
+      }
+  ]
+  };
+  const data2 = {
+      label: "1년 키워드 추이",
+      labels: [{% for m in month_list_2 %} '{{m}}', {% endfor %}],
+      
+      datasets: [{
+          label: '{{ key_list.0 }}', 
+          backgroundColor: ['rgb(194, 222, 220,0.7)','rgb(144, 222, 220,0.7)','rgb(104, 222, 220,0.7)','rgb(64, 222, 220,0.7)','rgb(24, 222, 220,0.7)'],
+          hoverBackgroundColor: 'rgb(236, 229, 199,0.8)',
+          borderColor: 'rgb(17, 106, 123,1)',
+          borderWidth: 1,
+          data: [{%for cl in cnt_list_0 %} '{{ cl }}', {% endfor %}],
+      },{
+          labels: [{% for m in month_list_1 %} '{{m}}', {% endfor %}],
+          label: '{{ key_list.1 }}',
+          backgroundColor: 'rgb(194, 222, 220,0.7)',
+          hoverBackgroundColor: 'rgb(236, 229, 199,0.8)',
+          borderColor: 'rgb(57, 106, 123,1)',
+          borderWidth: 1,
+          data: [{%for cl in cnt_list_1 %} '{{ cl }}', {% endfor %}],
+      },{
+          labels: [{% for m in month_list_2 %} '{{m}}', {% endfor %}],
+          label: '{{ key_list.2 }}',
+          backgroundColor: 'rgb(194, 222, 220,0.7)',
+          hoverBackgroundColor: 'rgb(236, 229, 199,0.8)',
+          borderColor: 'rgb(107, 106, 123,1)',
+          borderWidth: 1,
+          data: [{%for cl in cnt_list_2 %} '{{ cl }}', {% endfor %}],
+      },{
+          labels: [{% for m in month_list_3 %} '{{m}}', {% endfor %}],
+          label: '{{ key_list.3 }}',
+          backgroundColor: 'rgb(194, 222, 220,0.7)',
+          hoverBackgroundColor: 'rgb(236, 229, 199,0.8)',
+          borderColor: 'rgb(157, 106, 123,1)',
+          borderWidth: 1,
+          data: [{%for cl in cnt_list_3 %} '{{ cl }}', {% endfor %}],
+      },{
+          labels: [{% for m in month_list_4 %} '{{m}}', {% endfor %}],
+          label: '{{ key_list.4 }}',
+          backgroundColor: 'rgb(194, 222, 220,0.7)',
+          hoverBackgroundColor: 'rgb(236, 229, 199,0.8)',
+          borderColor: 'rgb(207, 106, 123,1)',
+          borderWidth: 1,
+          data: [{%for cl in cnt_list_4 %} '{{ cl }}', {% endfor %}],
+      }
+      ]
+  };
+  // config
+  const config = {
+      type: 'bar',
+      data,
+      options: {
+      responsive: false,
+      scales: {
+          y: {
+          beginAtZero: true
+          }
+      }
+      }
+  };
+  
+  const chart = new Chart(document.getElementById('bar_c'), config
+  );
+  
+  // line chart 
+
+  const config2 = {
+      type: 'line',
+      data: data2,
+      options: {
+      responsive: false,
+      scales: {
+          yAxes: [{
+              ticks: {
+                  min: 30,
+                  max: 100,
+                  fontsize: 14,
+              },
+          beginAtZero: true
+          }]
+      }
+      }
+  }
+  
+  const chart2 = new Chart(document.getElementById('line_c'), config2);
+
+</script>
+<!-- 20230626 김경민 close -->
+
+<!-- <script>
+
+
+  const data = {
+      // label: "키워드들",
+      labels: [{% for w in w_list%} ' {{w}}', {% endfor %}],
+      datasets: [{
+        label: '1년간 키워드 등장 빈도수',
+        backgroundColor: 'rgba(23, 107, 135, .7)',
+        hoverBackgroundColor: 'rgb(23, 107, 135)',
+        borderColor: 'rgb(23, 107, 135)',
+        borderWidth: 1,
+        data: [{%for c in c_list%} '{{ c }}', {% endfor %}],
+      }]
+  };
+  const data2 = {
+      // label: "키워드들",
+      labels: [{% for m in month_list %} '{{m}}', {% endfor %}],
+      datasets: [{
+        label: '1년간 "클라우드" 등장 빈도수',
+        backgroundColor: 'rgb(23, 107, 135, .7)',
+        hoverBackgroundColor: 'rgb(23, 107, 135)',
+        borderColor: 'rgb(23, 107, 135)',
+        borderWidth: 1,
+        data: [{%for cl in cnt_list %} '{{ cl }}', {% endfor %}],
+      }]
+  };
+  // config
+  const config = {
+    type: 'bar',
+    data,
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  };
+  
+  const chart = new Chart(document.getElementById('bar_c'), config
+  );
+  
+  // line chart 
+
+  const config2 = {
+      type: 'line',
+      data: data2,
+      options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  }
+  
+  const chart2 = new Chart(document.getElementById('line_c'), config2);
+
+</script>
+ -->
