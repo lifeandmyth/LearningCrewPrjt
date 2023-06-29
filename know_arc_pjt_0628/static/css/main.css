@@ -1,0 +1,273 @@
+/* scroll snap, page snap button */
+html, body {
+height: 100vh;
+overflow: hidden;
+}
+
+.shell {
+overflow: scroll;
+height: 100vh;
+scroll-snap-type: y mandatory;
+}
+
+.part {
+height: 100vh;
+scroll-snap-align: start;
+position: relative;
+}
+
+::-webkit-scrollbar {
+display: none;
+}
+
+div.scrollBox {
+    top: 44%;
+    left: 2%;
+    z-index: 100;
+    width: fit-content;
+}
+ul.scrollBtn {
+    list-style:none;
+}
+
+/* ul.scrollBtn li a div {
+    background-color: #006A7E;
+    width: 5px;
+    height: 20px;
+    border-radius: 20px;
+}
+ul.scrollBtn li a div.on {
+    background-color: #333;
+}
+ul.scrollBtn a div:nth-child(1) {
+    margin-bottom: 10px;
+} */
+
+ul.scrollBtn a {
+    text-decoration:none;
+}
+ul.scrollBtn a i::before {
+    color: #006A7E;
+    font-size: 30px;
+}
+ul.scrollBtn li:nth-child(2) i::before{
+    transform :rotate(180deg);
+    margin-top : 10px;
+}
+
+
+
+
+
+
+
+
+/* main part page */
+body {
+    height: 100%;
+    background-image: url('/static/assets/backf.png');
+    background-repeat : no-repeat;
+    background-size : cover;
+    }
+
+.mainPart div.searchPart {
+    position: relative;
+    top: 40%;
+    width: 100%;
+    height: 5%;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    color: inherit;
+    text-decoration: none;
+    font-size: inherit;
+    font-family: inherit;
+    line-height: inherit;
+}
+
+div.searchPart a {
+    outline:none;
+    color:#006A7E;  
+    margin:0;
+    padding:0;
+    font-size: 30px;
+    font-weight: 500;
+    vertical-align:baseline;
+    background:transparent;
+    text-decoration:none;
+}
+div.searchPart a:hover{
+    color: #006A7E;
+}
+div.searchPart a:active {
+    color: #005464;
+}
+
+div.searchPart input {
+    background-color: #006A7E;
+    /* background-color: transparent; */
+    width: 25%;
+    height: 61px;
+    padding: 0 12px;
+    position: relative;
+    top: 22px;
+    caret-color: #fff;
+    color: #fff;
+    font-size: 25px;
+    border: none;
+    outline: none;
+}
+input::-ms-clear,
+input::-ms-reveal{
+    display:none;width:0;height:0;
+}
+input::-webkit-search-decoration,
+input::-webkit-search-cancel-button,
+input::-webkit-search-results-button,
+input::-webkit-search-results-decoration{
+    display:none;
+}
+
+.searchPart span {
+    font-family: 'Black Han Sans', sans-serif;
+    font-size: 80px;
+}
+
+div.searchPart .logo {
+    position: relative;
+    left: 15px;
+}
+
+div.searchPart .sch_go {
+    position: relative;
+    left: -15px;
+}
+
+div.textBox {
+    font-weight: 700;
+    position: relative;
+    top: 45%;
+    color: #333;
+    width: 100%;
+}
+
+div.textBox span.textL {
+    position: absolute;
+    left: 32%;
+}
+
+div.textBox span.textR {
+    position: absolute;
+    right: 32%;
+}
+
+
+
+
+
+
+/* board part page */
+.boardBox {
+    width: 95%;
+    height: 95%;
+    background-color: #eee;
+    border-radius: 30px;
+}
+
+
+
+
+
+/* 0623 예슬 - 작업 */
+.boardBox .lanking {
+    width: 18%;
+    height: 40%;
+    position: absolute;
+    top : 11%;
+    right: 0;
+    margin-right: 2%;
+    background-color: #FFFAFA;
+    border-radius: 50% 40% 30% 30% / 40% 60% 34% 40%;
+}
+/* 
+p.lank_title {
+    width: fit-content;
+    background-color: #46b2a0;
+    border-radius: 50% 40% 30% 30% / 40% 60% 34% 40%;
+} */
+
+
+
+
+
+.boardBox .versus {
+    width: 20%;
+    height: 40%;
+    position: absolute;
+    bottom : 5%;
+    right: 0;
+    margin-right: 2%;
+    padding-left: 2%;
+}
+
+div.junior {
+    width: 100%;
+    height: 50%;
+    background-color: #C2DEDC;
+    border-radius: 35% 40% 30% 30% / 40% 60% 34% 40%;
+}
+div.senior {
+    width: 100%;
+    height: 50%;
+    background-color: #CDC2AE;
+    /* border-radius: 0 0 80px 0; */
+    border-radius: 30% 20% 44% 40% / 35% 65% 40% 70%;
+    margin-top: 10px;
+}
+
+
+.junior p {
+    width: 100%;
+}
+.senior p {
+    width: 100%;
+    text-align: right;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin-bottom: 0;
+}
+
+
+
+
+
+
+/* 동석 작업 */
+
+.search_results_wrapper li.artcs:nth-child(5)::after {
+    border: 0px solid transparent;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-bottom: 15px solid #ccc;
+    content:"";
+    position:absolute;
+    bottom:6.7%;
+    left:7.5%;
+   }
+
+
+.related_words li.rkword::after {
+    border: 0px solid transparent;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-bottom: 15px solid blue;
+    content:"";
+    position:absolute;
+    top: 46%;
+    right:5.2%;
+    z-index: 1000;
+   }
+
+
+
