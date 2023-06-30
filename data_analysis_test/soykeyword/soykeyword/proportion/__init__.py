@@ -1,2 +1,0 @@
-from ._proportion import CorpusbasedKeywordExtractor
-from ._proportion import MatrixbasedKeywordExtractor
