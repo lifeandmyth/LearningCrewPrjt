@@ -1,0 +1,49 @@
+
+{% load socialaccount %}
+
+
+<nav class="navbar-expand-lg">
+    <div class="position-fixed" style="z-index: 100; width: 100%;">
+        <h1 id="logo" class="m-5"><a href="/" class="text-decoration-none text-dark" style="margin-left: 30px;">knowark</a></h1>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <div id="navbarNavDarkDropdown">
+                <ul class="navbar-nav">
+                    {% if user.is_authenticated %}
+                    <li class="nav-item dropdown position-absolute top-0 end-0" style="margin: 10px 60px; font-family: 'Calistoga', cursive; font-size: 25px;">
+                        <a class="nav-link dropdown-toggle m-4" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true" >
+                            {{ user.username }}
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark" style="font-family: sans-serif" aria-labelledby="navbarDarkDropdownMenuLink">
+                            <!-- <li><a class="dropdown-item" href="/accounts/logout/">Sign Out <i class="bi bi-door-close"></i></a></li> -->
+<<<<<<< HEAD
+                            <li><a class="dropdown-item" href="/accounts/logout/">Log Out <i class="bi bi-door-close"></i></a></li>
+=======
+                            <li><a class="dropdown-item" href="/accounts/logout/">Sign Out <i class="bi bi-door-close"></i></a></li>
+>>>>>>> 63140d75cb74c4abeacb41c98c57d6d40de94777
+                            <li><a class="dropdown-item" href="/accounts/password/change/">Change PW <i class="bi bi-door-close"></i></a></li>
+                        </ul>
+                    </li>
+                    {% else %}
+<<<<<<< HEAD
+                    <li class="nav-item position-absolute top-0 end-0 m-5" style="font-family: 'Calistoga', cursive; font-size: 25px; font-weight: 400">
+                        <a role="button" href="/accounts/login/" style="font-size: 25px; margin-right: 140px;">log in</a>
+                    </li>
+                    <li class="nav-item position-absolute top-0 end-0" style="font-size: 23px; margin-top: 47px; margin-right: 172px; font-weight: 600;">|</li>
+                    <li class="nav-item position-absolute top-0 end-0 m-5" style="font-family: 'Calistoga', cursive; font-size: 25px; font-weight: 400">
+=======
+                    <li class="nav-item position-absolute top-0 end-0 m-5 font-family: 'Calistoga', cursive; font-size: 25px; font-weight: 700">
+                        <a role="button" href="/accounts/login/" style="font-size: 25px; margin-right: 140px;">sign in</a>
+                    </li>
+                    <li class="nav-item position-absolute top-0 end-0" style="font-size: 25px; margin-top: 47px; margin-right: 172px;">|</li>
+                    <li class="nav-item position-absolute top-0 end-0 m-5 font-family: 'Calistoga', cursive; font-size: 25px; font-weight: 700">
+>>>>>>> 63140d75cb74c4abeacb41c98c57d6d40de94777
+                        <a role="button" href="/sign/" style="font-size: 25px; margin-right: 30px;">sign up</a>
+                        <!-- <a role="button" class="position-absolute top-0 end-0 m-5" href="{% provider_login_url 'google' %}"><i class="bi bi-person-circle" style="font-size: 25px; margin-right: 30px;"></i></a> -->
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>
+

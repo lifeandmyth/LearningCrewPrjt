@@ -1,0 +1,154 @@
+<<<<<<< HEAD
+
+{% extends "account/base.html" %}
+
+
+
+{% load i18n %}
+{% load account socialaccount %}
+=======
+{% extends "account/base.html" %}
+
+{% load i18n %}
+{% load account socialaccount %}
+{% load static %}
+
+
+<!-- Core theme CSS (includes Bootstrap)-->
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+<link rel="stylesheet" href="{% static '../../../../static/css/login.css' %}">
+{% endblock %}
+>>>>>>> 63140d75cb74c4abeacb41c98c57d6d40de94777
+
+
+{% block content %}
+
+<<<<<<< HEAD
+<div style="margin: 10% 32%;">
+
+  <h1 style="font-family: 'Black Han Sans', sans-serif; font-size: 50px; color: #333;">{% trans "Sign In" %}</h1>
+
+  {% get_providers as socialaccount_providers %}
+
+  {% if socialaccount_providers %}
+  <p>{% blocktrans with site.name as site_name %}Please sign in with one
+  of your existing third party accounts. Or, <a href="{{ signup_url }}">sign up</a>
+  for a {{ site_name }} account and sign in below:{% endblocktrans %}</p>
+
+  <div class="socialaccount_ballot">
+
+    <ul class="socialaccount_providers">
+      {% include "socialaccount/snippets/provider_list.html" with process="login" %}
+    </ul>
+
+  </div>
+
+  {% include "socialaccount/snippets/login_extra.html" %}
+
+  {% else %}
+  <p>{% blocktrans %}If you have not created an account yet, then please
+  <a href="{{ signup_url }}">sign up</a> first.{% endblocktrans %}</p>
+  {% endif %}
+
+  <div class="mt-5">
+    <form class="login position-relative fw-bolder" method="POST" action="{% url 'account_login' %}">
+      {% csrf_token %}
+      {{ form.as_p }}
+      {% if redirect_field_value %}
+      <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+      {% endif %}
+      <a class="button secondaryAction" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
+      <button class="primaryAction btn btn-primary position-absolute bottom--10 end-0" type="submit">{% trans "Sign In" %}</button>
+    </form>
+  </div>
+
+
+  
+</div>
+
+{% endblock %}
+=======
+
+
+<div class="container-fluid ps-md-0">
+  <div class="row g-0">
+    <div class="d-none d-md-flex col-md-4 col-lg-6 bg-image"></div>
+    <div class="col-md-8 col-lg-6">
+      <div class="login d-flex align-items-center py-5">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-9 col-lg-8 mx-auto">
+              <h3 class="login-heading mb-4">Welcome back!</h3>
+
+              
+              <div>
+                <ul>
+                  {% if user.is_authenticated %}
+                  <li><a href="{% url 'account_email' %}">{% trans "Change E-mail" %}</a></li>
+                  <li><a href="{% url 'account_logout' %}">{% trans "Sign Out" %}</a></li>
+                  {% else %}
+                  <li><a href="{% url 'account_signup' %}">{% trans "Sign Up" %}</a></li>
+                  {% endif %}
+                </ul>
+              </div>
+
+
+              {% get_providers as socialaccount_providers %}
+              
+              <div class="socialaccount_ballot">
+              
+                <ul class="socialaccount_providers">
+                  {% include "socialaccount/snippets/provider_list.html" with process="login" %}
+                </ul>
+              
+              </div>
+              
+              {% include "socialaccount/snippets/login_extra.html" %}
+
+              <!-- Sign In Form -->
+              <form class="login" method="POST" action="{% url 'account_login' %}">
+                {% csrf_token %}
+                {% if redirect_field_value %}
+                <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+                {% endif %}
+                {{ form.as_p }}
+                <!-- <a class="button secondaryAction" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
+                <div class="form-floating mb-3">
+                  <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+                  <label for="floatingInput">Email address</label>
+                </div>
+                <div class="form-floating mb-3">
+                  <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+                  <label for="floatingPassword">Password</label>
+                </div>
+
+                <div class="form-check mb-3">
+                  <input class="form-check-input" type="checkbox" value="" id="rememberPasswordCheck">
+                  <label class="form-check-label" for="rememberPasswordCheck">
+                    Remember password
+                  </label>
+                </div> -->
+
+                <div class="d-grid">
+                  <button class="btn btn-lg btn-primary btn-login text-uppercase fw-bold mb-2" type="submit">Sign in</button>
+                  <div class="text-center">
+                    <a class="small" href="#">Forgot password?</a>
+                  </div>
+                </div>
+
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+
+
+
+>>>>>>> 63140d75cb74c4abeacb41c98c57d6d40de94777
