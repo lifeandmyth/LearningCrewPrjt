@@ -1,0 +1,217 @@
+{% load static %}
+<!-- {{w_c_list}} -->
+<div class="charset position-absolute top-0 start-0" style="width: 70%; height: 100%; z-index: 1000; margin-left: 6%;">
+
+
+  <!-- <div>
+    <ul class="">
+      {% for w_c in w_c_list %}
+      <li>{{w_c.0}}</li>
+      <li>{{w_c.1}}</li>
+      {%endfor%}
+    </ul>
+  </div>
+  <div>
+    <ul>
+      {% for t_l in total_key_list %}
+      <li>{{t_l.0}}</li>
+      <li>{{t_l.1}}</li>
+      <li>{{t_l.2}}</li>
+      {%endfor%}
+    </ul>
+  </div> -->
+
+  <div class="chart-wrapper d-flex justify-content-between" style="margin-top: 80px; padding:25px 30px; border-radius: 25px; background-color: #FFFAFA;">
+      
+    <div class="bar_c_area" style="margin-right: 2%;">
+        <p style="font-size : 25px; font-weight: 700; text-align: center;">전월 대비 키워드 언급 빈도 비교</p>
+        <canvas id="bar_c" style="width: 480px; height: 300px;">
+        </canvas>
+    </div>
+    <div class="line_c_area">
+        <p style="font-size : 25px; font-weight: 700; text-align: center;">월별 키워드 언급 빈도 비교</p>
+        <canvas id="line_c" style="width: 480px; height: 300px;">
+        </canvas>
+    </div>
+
+    <div class="related_words" style="width: 100%; margin-left: 15px;">
+      <p class="d-flex justify-content-center" style="font-size : 25px; font-weight: 700;">추천 연관어</p>
+      <ul class=" d-flex align-items-end flex-column" style="list-style: none; margin: 20px 50px 0 0;">
+        {% for r in related_words %}
+        <li class="rkword" style="padding: 10px 17px; margin-bottom: 7px; border-radius: 100px; background-color: #0079FF; width: fit-content;"><a href="https://www.google.com/search?q={{keyword}}{{r}}" style="color: #fff;">{{r}}</a></li>
+        {% endfor%}
+      </ul>
+    </div>
+
+  </div>
+
+  <div class="word_w_area position-absolute bottom-0 end-0" style="margin-bottom: 35px;">
+      <p class="d-flex justify-content-center" style="font-size : 25px; font-weight: 700; margin-bottom: -47px;">워드 클라우드</p>
+      <div style="background-color: #FFFAFA; border-radius: 25px; width:450px; height: 330px; text-align: center;">
+        {% if wordcloud_link == 'wordcloud' %}
+        <img width="380px" style="margin-top: 50px" src="{% static 'assets/wordcloud.png' %}">
+        {% elif wordcloud_link == 'computer_lang' %}
+        <img width="380px" style="margin-top: 50px" src="{% static 'assets/computer_lang_png.png' %}">
+        {% elif wordcloud_link == 'computer_pop' %}
+        <img width="380px" style="margin-top: 50px" src="{% static 'assets/computer_pop_png.png' %}">
+        {% elif wordcloud_link == 'computer_code' %}
+        <img width="380px" style="margin-top: 50px" src="{% static 'assets/computer_code_png.png' %}">
+        {% else %}
+        <img width="380px" style="margin-top: 60px" src="{% static 'assets/wordcloud.png' %}">
+        {% endif %}
+      </div>
+      
+  </div>
+</div>
+
+<div>
+  <canvas id="myChart"></canvas>
+</div>
+
+
+
+
+<!-- // 경민님 차트 -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+  // const ctx = document.getElementById('bar_c');
+
+  // const data = {
+  //     label: ["키워드들"],
+  //     datasets: [{
+  //         label: '1년간 키워드 등장 빈도수',
+  //         data: [{% for c in c_list %} '{{ c }}', {% endfor %}],
+  //     }]
+  // }
+
+  // const config = {
+  //   type: 'bar',
+  //   data: data,
+  //   options: {
+  //     scales: {
+  //       y: {
+  //         beginAtZero: true
+  //       }
+  //     },
+  //       backgroundColor: 'rgba(103,59,167,0.1)',
+  //       hoverBackgroundColor: 'rgba(103,59,167,0.5)',
+  //       borderColor: 'rgba(103,59,167,1)',
+  //       borderWidth: 1,
+  //   }
+  // }
+  
+
+  // new Chart(ctx, config);
+
+
+  const data = {
+  labels: [{% for k in key_list%} '{{k}}', {% endfor %}],
+  datasets: [{
+          label: "2023년 4월 키워드",
+          // yAxisID: 'y-left',
+          backgroundColor: ['rgb(128, 128, 128,0.7)','rgb(127, 127, 127,0.7)','rgb(126, 126, 126,0.7)','rgb(125, 125, 125,0.7)','rgb(124, 124, 124,0.7)'],
+          hoverBackgroundColor: 'rgb(236, 229, 199,0.8)',
+          borderColor: 'rgb(17, 106, 123,1)',
+          borderWidth: 1,
+          data: [{%for c in cnt_list_2%} '{{ c }}', {% endfor %}],
+      },{
+          label: "2023년 5월 키워드",
+          // yAxisID: 'y-right',
+          backgroundColor: ['rgb(25, 167, 206,0.7)','rgb(25, 167, 206,0.7)','rgb(25, 167, 206,0.7)','rgb(25, 167, 206,0.7)','rgb(25, 167, 206,0.7)'],
+          hoverBackgroundColor: 'RGB(216, 255, 255,0.8)',
+          borderColor: 'RGB(0, 2, 29,1)',
+          borderWidth: 1,
+          data: [{%for c in cnt_list_0%} '{{ c }}', {% endfor %}],
+      }
+    ]
+  };
+  const data2 = {
+      label: "1년 키워드 추이",
+      labels: [{% for m in month_list_2 %} '{{m}}', {% endfor %}],
+      
+      datasets: [{
+          label: '{{ key_list.0 }}', 
+          backgroundColor: ['rgb(194, 222, 220,0.7)','rgb(144, 222, 220,0.7)','rgb(104, 222, 220,0.7)','rgb(64, 222, 220,0.7)','rgb(24, 222, 220,0.7)'],
+          hoverBackgroundColor: 'rgb(236, 229, 199,0.8)',
+          borderColor: 'rgb(17, 106, 123,1)',
+          borderWidth: 1,
+          data: [{%for cl in cnt_list_0 %} '{{ cl }}', {% endfor %}],
+      },{
+          labels: [{% for m in month_list_1 %} '{{m}}', {% endfor %}],
+          label: '{{ key_list.1 }}',
+          backgroundColor: 'rgb(194, 222, 220,0.7)',
+          hoverBackgroundColor: 'rgb(236, 229, 199,0.8)',
+          borderColor: 'rgb(57, 106, 123,1)',
+          borderWidth: 1,
+          data: [{%for cl in cnt_list_1 %} '{{ cl }}', {% endfor %}],
+      },{
+          labels: [{% for m in month_list_2 %} '{{m}}', {% endfor %}],
+          label: '{{ key_list.2 }}',
+          backgroundColor: 'rgb(194, 222, 220,0.7)',
+          hoverBackgroundColor: 'rgb(236, 229, 199,0.8)',
+          borderColor: 'rgb(107, 106, 123,1)',
+          borderWidth: 1,
+          data: [{%for cl in cnt_list_2 %} '{{ cl }}', {% endfor %}],
+      },{
+          labels: [{% for m in month_list_3 %} '{{m}}', {% endfor %}],
+          label: '{{ key_list.3 }}',
+          backgroundColor: 'rgb(194, 222, 220,0.7)',
+          hoverBackgroundColor: 'rgb(236, 229, 199,0.8)',
+          borderColor: 'rgb(157, 106, 123,1)',
+          borderWidth: 1,
+          data: [{%for cl in cnt_list_3 %} '{{ cl }}', {% endfor %}],
+      },{
+          labels: [{% for m in month_list_4 %} '{{m}}', {% endfor %}],
+          label: '{{ key_list.4 }}',
+          backgroundColor: 'rgb(194, 222, 220,0.7)',
+          hoverBackgroundColor: 'rgb(236, 229, 199,0.8)',
+          borderColor: 'rgb(207, 106, 123,1)',
+          borderWidth: 1,
+          data: [{%for cl in cnt_list_4 %} '{{ cl }}', {% endfor %}],
+      }
+    ]
+  };
+  // config
+  const config = {
+    type: 'bar',
+    data,
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        },
+        responsive: true,
+        maintainAspectRatio: false,
+      }
+    }
+  };
+  
+  const chart = new Chart(document.getElementById('bar_c'), config
+  );
+  
+  // line chart 
+
+  const config2 = {
+      type: 'line',
+      data: data2,
+      options: {
+      scales: {
+        yAxes: [{
+            ticks: {
+                min: 30,
+                max: 100,
+                fontsize: 14,
+            },
+        beginAtZero: true
+        }],
+        responsive: true,
+        maintainAspectRatio: false,
+      }
+    }
+  }
+  
+  const chart2 = new Chart(document.getElementById('line_c'), config2);
+
+</script>
+
