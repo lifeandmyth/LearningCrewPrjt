@@ -42,22 +42,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'konlpy',
-    'matplotlib',
-    'numpy',
-    'nltk',
-    'pandas',
-    'requests',
-    'scikit-learn',
-    'seaborn',
-    'xgboost',
-    'scipy',
-    'beautifulsoup4',
-    'pymysql'
-    'wordcloud'
-    'jupyter notebook',
-    'ipykernel'
-
 
     # allauth lib 설정
     'django.contrib.sites',
@@ -66,6 +50,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',  #google sign
     
+    # 커스텀 앱
     'main',
 ]
 
@@ -103,7 +88,7 @@ WSGI_APPLICATION = 'know_arc_pjt.wsgi.application'
 # Database
 
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-
+# 배포 - AWS의 RDS database로 연동함
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -147,6 +132,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 
 # Internationalization
+# 언어 설정을 국내로 정정하고 USE_TZ=False
 
 LANGUAGE_CODE = 'ko-kr'
 

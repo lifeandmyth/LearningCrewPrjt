@@ -22,13 +22,12 @@ defusedxml==0.7.1
 exceptiongroup==1.1.1
 executing==1.2.0
 fastjsonschema==2.17.1
-fonttools==4.39.4
 fqdn==1.5.1
 h11==0.14.0
 idna==3.4
 importlib-resources==5.12.0
 joblib==1.2.0
-JPype1==1.4.1
+JPype1==1.4.0
 JPype1 @ file:///C:/playdata_lab/LearningCrewPrjt/JPype1-1.4.0-cp39-cp39-win_amd64.whl#sha256=3dcfee215e949acd79eccffbfae62b88c688200db3b326eef1cdca58bb08de91
 json5==0.9.14
 jsonpointer==2.3
